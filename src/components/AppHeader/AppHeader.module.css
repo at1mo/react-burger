@@ -1,0 +1,19 @@
+.header {
+  padding-top: 32px;
+  width: 100%;
+}
+
+.nav {
+  position: relative;
+    /* composes: header;
+    composes: anotherSelectorName from "./yet-awesome-file.module.css"; */
+}
+
+.nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

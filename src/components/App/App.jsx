@@ -1,11 +1,10 @@
 import React from "react";
-import AppHeader from "../AppHeader/App-Header";
+import AppHeader from "../AppHeader/AppHeader";
 import "./App.css";
 
 const App = () => {
   return (
     <>
-      Test 
       <AppHeader />
     </>
   );
