@@ -1,0 +1,22 @@
+.header {
+  max-width: 1920px;
+}
+
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__link {
+  cursor: pointer;
+  display: flex;
+  transition: opacity .2s linear;
+}
+
+.nav__link:hover {
+  opacity: .5;
+}
