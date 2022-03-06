@@ -1,12 +1,11 @@
 .header {
   padding-top: 32px;
+  padding-bottom: 33px;
   width: 100%;
 }
 
 .nav {
   position: relative;
-    /* composes: header;
-    composes: anotherSelectorName from "./yet-awesome-file.module.css"; */
 }
 
 .nav__list {

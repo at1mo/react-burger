@@ -6,7 +6,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
 .item__link {
@@ -19,6 +19,6 @@
 }
 
 .item__link:hover {
-  color: #FFF;
-/*   stroke: #FFF; */
+  color: #fff;
+  /*   stroke: #FFF; */
 }

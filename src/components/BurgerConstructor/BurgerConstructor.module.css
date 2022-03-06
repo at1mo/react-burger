@@ -1,0 +1,5 @@
+.section {
+  width: 50%;
+  min-height: calc(100vh - 89px - 56px);
+  border: 1px solid yellow;
+}
