@@ -15,7 +15,7 @@ function AppHeader() {
     <header className={styleHeader.header}>
       <nav className={styleHeader.nav}>
         <ul className={styleHeader.nav__list}>
-          <NavItem link={"#1"}>
+          <NavItem link={"#1"} status="true">
             <BurgerIcon />
             <span className="text_type_main-default pl-2">Конструктор</span>
           </NavItem>

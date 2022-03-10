@@ -1,6 +1,9 @@
 import React from "react";
+import PropsTypes from "prop-types";
 
 import styleNavItem from "./NavItem.module.css";
+
+// const status = false
 
 const NavItem = (props) => {
   return (
@@ -11,5 +14,11 @@ const NavItem = (props) => {
     </li>
   );
 };
+
+NavItem.propsTypes = {
+  children: PropsTypes.element.isRequired,
+  link: PropsTypes.string,
+  status: PropsTypes.bool
+}
 
 export default NavItem;

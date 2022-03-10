@@ -1,48 +1,73 @@
 import React from "react";
 
-import PriceSubtract from "../PriceSubtract/PriceSubtract";
+import ItemBurger from "../ItemBurger/ItemBurger";
+import Tabs from "../Tabs/Tabs";
+
+import { itemData } from "../../utils/constants";
 
 import styleBurgerConstructor from "./BurgerConstructor.module.css";
 
 const BurgerConstructor = () => {
   return (
     <section className={styleBurgerConstructor.section}>
-      <h1 className="pl-10">Соберите бургер</h1>
-      <nav> {/* Меню */}
-        <ul style={{listStyle: "none", display: "flex", justifyContent: "space-around", padding: 0, margin: 0}}>
-          <li>
-            Булки
-          </li>
-          <li>
-            Соусы
-          </li>
-          <li>
-            Начинки
-          </li>
-        </ul>
-      </nav>
-      <section> {/* Секция меню */}
-        <h2 className="pl-4">Булки</h2>
-        <ul style={{listStyle: "none"}}>
-          <li style={{margin: 0}}> {/* itemCard */}
-            <div style={{width: 240, height: 120, backgroundColor: "red", margin: 0}} />
-
-            <p>
-              Краторная булка N-200i
-            </p>
-          </li>
-          <li style={{margin: 0}}> {/* itemCard */}
-            <div style={{width: 240, height: 120, backgroundColor: "red", margin: 0}} />
-            <div style={{display: "flex"}}>
-              <span>20</span>
-              <div style={{width: 22, height: 22, backgroundColor: "yellow"}} />
-            </div>
-            <p>
-              Краторная булка N-200i
-            </p>
-          </li>
-        </ul>
-      </section>
+      <h1 className="pt-10 pb-5 text text_type_main-large">Соберите бургер</h1>
+      <Tabs active="Булки" />
+      <div className={styleBurgerConstructor.container}>
+        <h2
+          className={`${styleBurgerConstructor.text} pt-10 pb-6 text text_type_main-medium`}
+        >
+          Булки
+        </h2>
+        {itemData.map((item) => {
+          if (item.type === "bun") {
+            console.log(item);
+            return (
+              <ItemBurger
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
+        })}
+        <h2
+          className={`${styleBurgerConstructor.text} pt-10 pb-6 text text_type_main-medium`}
+        >
+          Соусы
+        </h2>
+        {itemData.map((item) => {
+          if (item.type === "sauce") {
+            console.log(item);
+            return (
+              <ItemBurger
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
+        })}
+        <h2
+          className={`${styleBurgerConstructor.text} pt-10 pb-6 text text_type_main-medium`}
+        >
+          Начинки
+        </h2>
+        {itemData.map((item) => {
+          if (item.type === "main") {
+            console.log(item);
+            return (
+              <ItemBurger
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
+        })}
+      </div>
     </section>
   );
 };

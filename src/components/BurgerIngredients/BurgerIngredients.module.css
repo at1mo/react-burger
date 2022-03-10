@@ -1,4 +1,13 @@
 .section {
   width: 50%;
-  border: 1px solid red;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.scroll {
+  height: 465px;
+  overflow-y: auto;
 }

@@ -1,5 +1,19 @@
 .section {
   width: 50%;
   min-height: calc(100vh - 89px - 56px);
-  border: 1px solid yellow;
+}
+
+.container {
+  height: 700px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  justify-content: center;
+}
+
+.text {
+  flex-basis: 100%;
+  height: max-content;
 }

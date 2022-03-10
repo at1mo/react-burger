@@ -14,11 +14,14 @@
   display: flex;
   align-items: center;
   color: var(--text-inactive-color);
-  /* stroke: var(--text-inactive-color); */
   transition: var(--common-transition);
 }
 
 .item__link:hover {
   color: #fff;
   /*   stroke: #FFF; */
+}
+
+.item__active {
+  color: #fff;
 }

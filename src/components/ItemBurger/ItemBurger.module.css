@@ -3,7 +3,7 @@
   justify-content: center;
   max-width: 272px;
   max-height: 208px;
-  border: 1px solid red;
+  position: relative;
 }
 
 .image {
@@ -18,4 +18,12 @@
   margin: 0;
   min-height: 48px;
   text-align: center;
+}
+
+.counter_active {
+  display: block;
+}
+
+.counter_inactive {
+  display: none;
 }

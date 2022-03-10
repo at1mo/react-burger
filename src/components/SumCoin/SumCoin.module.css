@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 52px;
+}
+
+.sum_list {
+  display: flex;
+  align-items: baseline;
+}
+
+.sum {
+  padding-right: 9px;
+}
