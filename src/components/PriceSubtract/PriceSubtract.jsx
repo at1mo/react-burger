@@ -15,7 +15,7 @@ const PriceSubtract = (props) => {
 };
 
 PriceSubtract.propsTypes = {
-  price: PropsTypes.number,
+  price: PropsTypes.number.isRequired,
   space: PropsTypes.string
 }
 

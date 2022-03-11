@@ -1,83 +1,71 @@
 import React from "react";
 
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import ItemBurger from "../ItemBurger/ItemBurger";
+import Tabs from "../Tabs/Tabs";
+
+import { itemData } from "../../utils/constants";
 
 import styleBurgerIngredients from "./BurgerIngredients.module.css";
-import SumCoin from "../SumCoin/SumCoin";
 
 const BurgerIngredients = () => {
   return (
-    <div className={`${styleBurgerIngredients.section} pt-25 pl-4`} >
-      <div className="pl-8 pr-8 pb-4">
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={200}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-        />
+    <section className={styleBurgerIngredients.section}>
+      <h1 className="pt-10 pb-5 text text_type_main-large">Соберите бургер</h1>
+      <Tabs active="Булки" />
+      <div className={styleBurgerIngredients.container}>
+        <h2
+          className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+        >
+          Булки
+        </h2>
+        {itemData.map((item) => {
+          if (item.type === "bun") {
+            return (
+              <ItemBurger
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
+        })}
+        <h2
+          className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+        >
+          Соусы
+        </h2>
+        {itemData.map((item) => {
+          if (item.type === "sauce") {
+            return (
+              <ItemBurger
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
+        })}
+        <h2
+          className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+        >
+          Начинки
+        </h2>
+        {itemData.map((item) => {
+          if (item.type === "main") {
+            return (
+              <ItemBurger
+                key={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
+        })}
       </div>
-      <div className={styleBurgerIngredients.scroll}>
-        <div className={`${styleBurgerIngredients.container}`}>
-          <DragIcon />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-          />
-        </div>
-        <div className={`${styleBurgerIngredients.container} pt-4`}>
-          <DragIcon />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-          />
-        </div>
-        <div className={`${styleBurgerIngredients.container} pt-4`}>
-          <DragIcon />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-          />
-        </div>
-        <div className={`${styleBurgerIngredients.container} pt-4`}>
-          <DragIcon />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-          />
-        </div>
-        <div className={`${styleBurgerIngredients.container} pt-4`}>
-          <DragIcon />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-          />
-        </div>
-        <div className={`${styleBurgerIngredients.container} pt-4`}>
-          <DragIcon />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-          />
-        </div>
-      </div>
-      <div className="pl-8 pr-8 pt-4">
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={200}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-        />
-      </div>
-      <SumCoin sum="611" />
-    </div>
+    </section>
   );
 };
 

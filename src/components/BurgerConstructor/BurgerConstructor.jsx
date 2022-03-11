@@ -1,74 +1,57 @@
 import React from "react";
 
-import ItemBurger from "../ItemBurger/ItemBurger";
-import Tabs from "../Tabs/Tabs";
+import {
+  ConstructorElement,
+  DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { itemData } from "../../utils/constants";
 
-import styleBurgerConstructor from "./BurgerConstructor.module.css";
+import styleBurgerConstructors from "./BurgerConstructor.module.css";
+import SumCoin from "../SumCoin/SumCoin";
 
 const BurgerConstructor = () => {
   return (
-    <section className={styleBurgerConstructor.section}>
-      <h1 className="pt-10 pb-5 text text_type_main-large">Соберите бургер</h1>
-      <Tabs active="Булки" />
-      <div className={styleBurgerConstructor.container}>
-        <h2
-          className={`${styleBurgerConstructor.text} pt-10 pb-6 text text_type_main-medium`}
-        >
-          Булки
-        </h2>
+    <div className={`${styleBurgerConstructors.section} pt-25 pl-4 pr-4`}>
+      <div className={`${styleBurgerConstructors.item} pl-8`}>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text="Краторная булка N-200i (верх)"
+          price={200}
+          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+        />
+      </div>
+      <div className={styleBurgerConstructors.container}>
         {itemData.map((item) => {
-          if (item.type === "bun") {
-            console.log(item);
+          if (item.type !== "bun") {
             return (
-              <ItemBurger
+              <div
+                className={`${styleBurgerConstructors.item} pt-4`}
                 key={item._id}
-                name={item.name}
-                price={item.price}
-                image={item.image}
-              />
-            );
-          }
-        })}
-        <h2
-          className={`${styleBurgerConstructor.text} pt-10 pb-6 text text_type_main-medium`}
-        >
-          Соусы
-        </h2>
-        {itemData.map((item) => {
-          if (item.type === "sauce") {
-            console.log(item);
-            return (
-              <ItemBurger
-                key={item._id}
-                name={item.name}
-                price={item.price}
-                image={item.image}
-              />
-            );
-          }
-        })}
-        <h2
-          className={`${styleBurgerConstructor.text} pt-10 pb-6 text text_type_main-medium`}
-        >
-          Начинки
-        </h2>
-        {itemData.map((item) => {
-          if (item.type === "main") {
-            console.log(item);
-            return (
-              <ItemBurger
-                key={item._id}
-                name={item.name}
-                price={item.price}
-                image={item.image}
-              />
+              >
+                <DragIcon />
+                <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </div>
             );
           }
         })}
       </div>
-    </section>
+      <div className={`${styleBurgerConstructors.item} pl-8 pr-8 pt-4`}>
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text="Краторная булка N-200i (низ)"
+          price={200}
+          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+        />
+      </div>
+      <SumCoin sum="611" />
+    </div>
   );
 };
 

@@ -21,7 +21,7 @@ const Tabs = (props) => {
 };
 
 Tabs.propsTypes = {
-  active: PropsTypes.string,
+  active: PropsTypes.string.isRequired,
 };
 
 export default Tabs;

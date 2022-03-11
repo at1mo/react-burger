@@ -1,13 +1,20 @@
 .section {
   width: 50%;
+  min-height: calc(100vh - 89px - 56px);
+  padding-bottom: 40px;
 }
 
 .container {
+  height: 700px;
+  overflow-y: auto;
+
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  justify-content: center;
 }
 
-.scroll {
-  height: 465px;
-  overflow-y: auto;
+.text {
+  flex-basis: 100%;
+  height: max-content;
 }

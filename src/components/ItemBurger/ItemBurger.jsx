@@ -25,10 +25,10 @@ const ItemBurger = (props) => {
 };
 
 ItemBurger.propsTypes = {
-  name: PropsTypes.string,
-  price: PropsTypes.number,
+  name: PropsTypes.string.isRequired,
+  price: PropsTypes.number.isRequired,
   count: PropsTypes.number,
-  image: PropsTypes.string,
+  image: PropsTypes.string.isRequired,
   status: PropsTypes.bool,
 };
 
