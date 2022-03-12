@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from '../../images/logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import AppHeader from "../AppHeader/AppHeader";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+
+import styleApp from "./App.module.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello react
+    <>
+      <AppHeader />
+
+      <main className={styleApp.main}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+
+{/*       <footer>
+        <p className="text_type_main-default" style={{ textAlign: "left" }}>
+          &copy; 2022. A. Timokhin
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      </footer> */}
+    </>
   );
-}
+};
 
 export default App;
