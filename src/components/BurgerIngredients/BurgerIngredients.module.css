@@ -1,6 +1,5 @@
 .section {
   width: 50%;
-  min-height: calc(100vh - 89px - 56px);
   padding-bottom: 40px;
 }
 
