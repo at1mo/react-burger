@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AppFooter from "../AppFooter/AppFooter";
 
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
@@ -11,15 +12,28 @@ import styleApp from "./App.module.css";
 const App = () => {
   return (
     <>
-      <ModalOverlay>
+
+      <AppHeader />
+      <main className={styleApp.main}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+      <AppFooter author="А.Тимохин" />
+    </>
+  );
+};
+
+export default App;
+
+{/*       <ModalOverlay>
         <Modal>
-          <h2 style={{textShadow: "0 0 6px #4C4CFF,0 0 12px #4C4CFF"}} className="text text_type_digits-large pb-8">034536</h2>
+          <h2 style={{textShadow: "0 0 6px #4C4CFF,0 0 12px #4C4CFF"}} className="text text_type_digits-large pb-8 pt-4">034536</h2>
           <p className="text text_type_main-medium pb-15">идентификатор заказа</p>
           <img style={{maxWidth: 120, maxHeight: 120, margin: "0 auto"}} src="https://dummyimage.com/120x120/fff/aaa" />
           <p className="text text_type_main-default pt-15 pb-2">Ваш заказ начали готовить</p>
           <p className="text text_type_main-default text_color_inactive pb-15">Дождитесь готовности на орбитальной станции</p>
         </Modal>
-      </ModalOverlay>
+      </ModalOverlay> */}
 
 {/*       <ModalOverlay>
         <Modal name="Детали ингредиента">
@@ -45,21 +59,3 @@ const App = () => {
           </div>
         </Modal>
       </ModalOverlay> */}
-
-      <AppHeader />
-
-      <main className={styleApp.main}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </main>
-
-      <footer>
-        <p className="text_type_main-default" style={{ textAlign: "left" }}>
-          &copy; 2022. A. Timokhin
-        </p>
-      </footer>
-    </>
-  );
-};
-
-export default App;
