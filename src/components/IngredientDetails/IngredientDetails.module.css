@@ -1,0 +1,15 @@
+.image {
+  max-width: 480px;
+  min-height: 240px;
+  margin: 0 auto;
+}
+
+.container {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.item {
+  margin: 0;
+}

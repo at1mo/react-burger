@@ -1,4 +1,5 @@
 import React from "react";
+import PropsTypes from "prop-types";
 
 const AppFooter = ({ author }) => {
   const now = new Date();
@@ -9,6 +10,10 @@ const AppFooter = ({ author }) => {
       </p>
     </footer>
   );
+};
+
+AppFooter.propsTypes = {
+  author: PropsTypes.string.isRequired,
 };
 
 export default AppFooter;

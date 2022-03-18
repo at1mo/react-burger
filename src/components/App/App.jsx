@@ -1,61 +1,68 @@
-import React, { useEffect } from "react";
-import AppFooter from "../AppFooter/AppFooter";
+import React, { useState, useEffect } from "react";
+
+import { config } from "../../utils/constants";
 
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import Modal from "../Modal/Modal";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import AppFooter from "../AppFooter/AppFooter";
 
 import styleApp from "./App.module.css";
 
 const App = () => {
+  const [modalActive, setModalActive] = useState({ status: false });
+  const [modalIngredient, setModalIngredient] = useState({
+    item: [],
+    status: false,
+  });
+
+  const [state, setState] = useState({
+    isLoading: false,
+    hasError: false,
+    data: {},
+  });
+
+  const { data, isLoading, hasError } = state;
+
+  useEffect(() => {
+    setState({ ...state, hasError: false, isLoading: true });
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      fetch(config.baseUrl)
+        .then((res) => res.json())
+        .then((data) => setState({ ...state, data, isLoading: false }));
+    } catch (e) {
+      setState({ ...state, hasError: true, isLoading: false });
+    }
+  };
+
   return (
     <>
-
-      <AppHeader />
-      <main className={styleApp.main}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </main>
-      <AppFooter author="А.Тимохин" />
+      {isLoading && "Загрузка..."}
+      {hasError && "Произошла ошибка"}
+      {!isLoading && !hasError && data.success && (
+        <>
+          <AppHeader />
+          <main className={styleApp.main}>
+            <BurgerIngredients
+              data={data.data}
+              modalIngredient={modalIngredient}
+              setModalIngredient={setModalIngredient}
+            />
+            <BurgerConstructor
+              data={data.data}
+              modalActive={modalActive}
+              setModalActive={setModalActive}
+            />
+          </main>
+          <AppFooter author="А.Тимохин" />
+        </>
+      )}
     </>
   );
 };
 
 export default App;
-
-{/*       <ModalOverlay>
-        <Modal>
-          <h2 style={{textShadow: "0 0 6px #4C4CFF,0 0 12px #4C4CFF"}} className="text text_type_digits-large pb-8 pt-4">034536</h2>
-          <p className="text text_type_main-medium pb-15">идентификатор заказа</p>
-          <img style={{maxWidth: 120, maxHeight: 120, margin: "0 auto"}} src="https://dummyimage.com/120x120/fff/aaa" />
-          <p className="text text_type_main-default pt-15 pb-2">Ваш заказ начали готовить</p>
-          <p className="text text_type_main-default text_color_inactive pb-15">Дождитесь готовности на орбитальной станции</p>
-        </Modal>
-      </ModalOverlay> */}
-
-{/*       <ModalOverlay>
-        <Modal name="Детали ингредиента">
-          <img style={{maxWidth: 480, maxHeight: 240, margin: "0 auto"}} src="https://dummyimage.com/480x240/fff/aaa" />
-          <p className="text text_type_main-medium pt-4">Биокотлета из марсианской Магнолии</p>
-          <div className="pt-8" style={{display: "grid", columnGap: 20, gridTemplateColumns: "repeat(4, 1fr)"}}>
-            <div className="text text_type_main-default text_color_inactive" item="">
-              <p className="pb-2" style={{margin: 0}}>Калории,ккал</p>
-              <span className="text text_type_digits-default">244,4</span>
-            </div>
-            <div className="text text_type_main-default text_color_inactive" item="">
-              <p className="pb-2" style={{margin: 0}}>Калории,ккал</p>
-              <span className="text text_type_digits-default">244,4</span>
-            </div>
-            <div className="text text_type_main-default text_color_inactive" item="">
-              <p className="pb-2" style={{margin: 0}}>Калории,ккал</p>
-              <span className="text text_type_digits-default">244,4</span>
-            </div>
-            <div className="text text_type_main-default text_color_inactive" item="">
-              <p className="pb-2" style={{margin: 0}}>Калории,ккал</p>
-              <span className="text text_type_digits-default">244,4</span>
-            </div>
-          </div>
-        </Modal>
-      </ModalOverlay> */}

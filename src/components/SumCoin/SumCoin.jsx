@@ -8,16 +8,16 @@ import {
 
 import styleSunCoin from "./SumCoin.module.css";
 
-const SumCoin = (props) => {
+const SumCoin = ({ sum, setModalActive }) => {
   return (
     <div className={`${styleSunCoin.container} pt-10 pr-4 `}>
       <div className={`${styleSunCoin.sum_list} pr-10`}>
         <p className={`${styleSunCoin.sum} text text_type_digits-medium`}>
-          {props.sum}
+          {sum}
         </p>
         <CurrencyIcon />
       </div>
-      <Button type="primary" size="medium">
+      <Button type="primary" size="medium" onClick={() => setModalActive({status: true})}>
         Оформить заказ
       </Button>
     </div>
@@ -26,6 +26,7 @@ const SumCoin = (props) => {
 
 SumCoin.propsTypes = {
   sum: PropsTypes.number.isRequired,
+  setModalActive: PropsTypes.func,
 };
 
 export default SumCoin;

@@ -11,6 +11,7 @@
   flex-wrap: wrap;
   column-gap: 24px;
   justify-content: center;
+  align-content: flex-start;
 }
 
 .text {
