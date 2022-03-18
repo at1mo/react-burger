@@ -1,6 +1,6 @@
 body {
   display: grid;
-  grid-template-columns: minmax(min-content, 1240px);
+  grid-template-columns: 1240px;
   justify-content: center;
   font-family: "Jet Brains Mono", "Consolas", "Lucida Console";
 }

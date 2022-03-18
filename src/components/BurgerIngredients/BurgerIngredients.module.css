@@ -1,6 +1,5 @@
 .section {
   width: 50%;
-  min-height: calc(100vh - 89px - 56px);
   padding-bottom: 40px;
 }
 
@@ -12,6 +11,7 @@
   flex-wrap: wrap;
   column-gap: 24px;
   justify-content: center;
+  align-content: flex-start;
 }
 
 .text {

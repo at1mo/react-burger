@@ -1,0 +1,9 @@
+.title {
+  text-shadow: 0 0 6px #4c4cff, 0 0 12px #4c4cff;
+}
+
+.image {
+  max-width: 120px;
+  max-height: 120px;
+  margin: 0 auto;
+}
