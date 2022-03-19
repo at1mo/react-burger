@@ -1,0 +1,19 @@
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.nav__list {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  list-style: none;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  justify-content: space-between;
+}

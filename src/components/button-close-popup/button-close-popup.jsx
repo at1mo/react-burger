@@ -3,7 +3,7 @@ import PropsTypes from "prop-types";
 
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleButtonClosePopup from "./ButtonClosePopup.module.css";
+import styleButtonClosePopup from "./button-close-popup.module.css";
 
 const ButtonClosePopup = ({ onClick }) => {
   return (

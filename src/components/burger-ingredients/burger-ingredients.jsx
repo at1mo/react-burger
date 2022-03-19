@@ -1,11 +1,11 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
-import Tabs from "../Tabs/Tabs";
-import ItemBurger from "../ItemBurger/ItemBurger";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import Tabs from "../tabs/tabs";
+import ItemBurger from "../item-burger/item-burger";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
-import styleBurgerIngredients from "./BurgerIngredients.module.css";
+import styleBurgerIngredients from "./burger-ingredients.module.css";
 
 
 const BurgerIngredients = ({ data, modalIngredient, setModalIngredient }) => {

@@ -1,15 +1,15 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
-import OrderDetails from "../OrderDetails/OrderDetails";
+import OrderDetails from "../order-details/order-details";
 
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleBurgerConstructors from "./BurgerConstructor.module.css";
-import SumCoin from "../SumCoin/SumCoin";
+import styleBurgerConstructors from "./burger-constructor.module.css";
+import SumCoin from "../sum-coin/sum-coin";
 
 const BurgerConstructor = ({ data, modalActive, setModalActive }) => {
   let sumOrder = 400;

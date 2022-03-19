@@ -1,0 +1,10 @@
+.footer {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 0 20px 20px;
+}
+
+.text {
+  margin: 0;
+  text-align: left;
+}

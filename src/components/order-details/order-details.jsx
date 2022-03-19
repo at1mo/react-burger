@@ -1,10 +1,10 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
-import Modal from "../Modal/Modal";
-
+import Modal from "../modal/modal";
 import doneImagePath from "../../images/done.svg";
-import styleOrderDetails from "./OrderDetails.module.css";
+
+import styleOrderDetails from "./order-details.module.css";
 
 const OrderDetails = ({ modalActive, setModalActive, numOrder }) => {
   return (

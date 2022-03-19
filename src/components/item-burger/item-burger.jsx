@@ -1,11 +1,11 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
-import PriceSubtract from "../PriceSubtract/PriceSubtract";
+import PriceSubtract from "../price-subtract/price-subtract";
 
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleItemBurger from "./ItemBurger.module.css";
+import styleItemBurger from "./item-burger.module.css";
 
 const ItemBurger = (props) => {
   return (
@@ -15,7 +15,7 @@ const ItemBurger = (props) => {
         <Counter count={props.__v} size="default" />
       </div>
       <img className={styleItemBurger.image} src={props.image} alt={props.name} />
-      <PriceSubtract price={props.price} space="pt-1 pb-1" />
+      <PriceSubtract price={props.price} />
       <p className={styleItemBurger.text}>{props.name}</p>
     </div>
   );
