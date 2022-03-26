@@ -3,10 +3,12 @@ import PropsTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import styleTabs from "./tabs.module.css"
+
 const Tabs = (props) => {
   const [current, setCurrent] = React.useState("Булки");
   return (
-    <div style={{ display: "flex" }}>
+    <div className={styleTabs.container}>
       <Tab value="Булки" active={current === "Булки"} onClick={setCurrent}>
         Булки
       </Tab>

@@ -16,3 +16,11 @@
   column-gap: 8px;
   min-width: 536px;
 }
+
+.drag__item {
+  cursor: grab;
+}
+
+.drag__item_active {
+  cursor: grabbing;
+}

@@ -6,7 +6,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleSunCoin from "./SumCoin.module.css";
+import styleSunCoin from "./sum-coin.module.css";
 
 const SumCoin = ({ sum, setModalActive }) => {
   return (

@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import PropsTypes from "prop-types";
 
-import OrderDetails from "../OrderDetails/OrderDetails";
+import OrderDetails from "../order-details/order-details";
+import { sortDesc } from "../../utils/sort";
 
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleBurgerConstructors from "./BurgerConstructor.module.css";
-import SumCoin from "../SumCoin/SumCoin";
+import styleBurgerConstructors from "./burger-constructor.module.css";
+import SumCoin from "../sum-coin/sum-coin";
 
-const BurgerConstructor = ({ data, modalActive, setModalActive }) => {
+const BurgerConstructor = ({ data }) => {
+  const [modalActive, setModalActive] = useState({ status: false });
+
+  const orderList = data
+    .filter((itemBun) => itemBun.type !== "bun")
+    .sort(sortDesc);
+
   let sumOrder = 400;
 
   return (
@@ -26,23 +33,23 @@ const BurgerConstructor = ({ data, modalActive, setModalActive }) => {
         />
       </div>
       <div className={styleBurgerConstructors.container}>
-        {data.map((item) => {
-          if (item.type !== "bun") {
-            sumOrder += item.price;
-            return (
-              <div
-                className={`${styleBurgerConstructors.item} pt-4`}
-                key={item._id}
-              >
+        {orderList.map((item) => {
+          sumOrder += item.price;
+          return (
+            <div
+              className={`${styleBurgerConstructors.item} pt-4`}
+              key={item._id}
+            >
+              <div className={styleBurgerConstructors.drag__item}>
                 <DragIcon />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
               </div>
-            );
-          }
+              <ConstructorElement
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </div>
+          );
         })}
       </div>
       <div className={`${styleBurgerConstructors.item} pl-8 pr-8 pt-4`}>

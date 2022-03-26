@@ -1,11 +1,13 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
+import styleFooter from "./app-footer.module.css";
+
 const AppFooter = ({ author }) => {
   const now = new Date();
   return (
-    <footer>
-      <p className="text_type_main-default" style={{ textAlign: "left" }}>
+    <footer className={styleFooter.footer}>
+      <p className={`${styleFooter.text} text_type_main-default`}>
         &copy;{` ${now.getFullYear()} ${author}`}
       </p>
     </footer>

@@ -1,6 +1,10 @@
 body {
-  display: grid;
-  grid-template-columns: 1240px;
-  justify-content: center;
   font-family: "Jet Brains Mono", "Consolas", "Lucida Console";
+
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

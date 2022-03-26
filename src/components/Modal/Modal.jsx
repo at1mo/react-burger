@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
 import PropsTypes from "prop-types";
 
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import ButtonClosePopup from "../ButtonClosePopup/ButtonClosePopup";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import ButtonClosePopup from "../button-close-popup/button-close-popup";
 
-import styleModal from "./Modal.module.css";
+import styleModal from "./modal.module.css";
 
 const modalRoot = document.getElementById("react-modals");
 
