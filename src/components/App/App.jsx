@@ -10,16 +10,10 @@ import AppFooter from "../app-footer/app-footer";
 import styleApp from "./app.module.css";
 
 const App = () => {
-  const [modalActive, setModalActive] = useState({ status: false });
-  const [modalIngredient, setModalIngredient] = useState({
-    item: [],
-    status: false,
-  });
-
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
-    data: {},
+    data: null,
   });
 
   const { data, isLoading, hasError } = state;
@@ -28,7 +22,7 @@ const App = () => {
     loadData();
   }, []);
 
-  const loadData = async () => {
+  const loadData = () => {
     setState({ ...state, hasError: false, isLoading: true });
     fetch(config.baseUrl)
       .then((res) => res.json())
@@ -36,25 +30,17 @@ const App = () => {
       .catch(() => setState({ ...state, hasError: true, isLoading: false }));
   };
 
-  if (isLoading) return <>Загрузка...</>;
-  if (hasError) return <>Произошла ошибка</>;
+  if (isLoading) return <>Загрузка...</>; // Сделать потом отдельный компонент
+  if (hasError) return <>Произошла ошибка</>; // Сделать потом отдельный компонент
 
   return (
     <>
-      {data.success && (
+      {data && (
         <>
           <AppHeader />
           <main className={`${styleApp.main} ${styleApp.container}`}>
-            <BurgerIngredients
-              data={data.data}
-              modalIngredient={modalIngredient}
-              setModalIngredient={setModalIngredient}
-            />
-            <BurgerConstructor
-              data={data.data}
-              modalActive={modalActive}
-              setModalActive={setModalActive}
-            />
+            <BurgerIngredients data={data.data} />
+            <BurgerConstructor data={data.data} />
           </main>
           <AppFooter author="А.Тимохин" />
         </>

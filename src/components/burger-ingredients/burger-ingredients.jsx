@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropsTypes from "prop-types";
 
 import Tabs from "../tabs/tabs";
@@ -7,8 +7,12 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 
 import styleBurgerIngredients from "./burger-ingredients.module.css";
 
+const BurgerIngredients = ({ data }) => {
+  const [modalIngredient, setModalIngredient] = useState({
+    item: [],
+    status: false,
+  });
 
-const BurgerIngredients = ({ data, modalIngredient, setModalIngredient }) => {
   const bunsList = data.filter((itemBun) => itemBun.type === "bun");
   const saucesList = data.filter((itemBun) => itemBun.type === "sauce");
   const mainsList = data.filter((itemBun) => itemBun.type === "main");
@@ -18,24 +22,45 @@ const BurgerIngredients = ({ data, modalIngredient, setModalIngredient }) => {
       <h1 className="pt-10 pb-5 text text_type_main-large">Соберите бургер</h1>
       <Tabs active="Булки" />
       <div className={styleBurgerIngredients.container}>
-        <h2 className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}>
+        <h2
+          className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+        >
           Булки
         </h2>
         {bunsList.map((item) => (
-          <ItemBurger key={item._id} {...item} modalIngredient={modalIngredient} setModalIngredient={setModalIngredient} />
+          <ItemBurger
+            key={item._id}
+            {...item}
+            modalIngredient={modalIngredient}
+            setModalIngredient={setModalIngredient}
+          />
         ))}
 
-        <h2 className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}>
+        <h2
+          className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+        >
           Соусы
         </h2>
         {saucesList.map((item) => (
-          <ItemBurger key={item._id} {...item} modalIngredient={modalIngredient} setModalIngredient={setModalIngredient} />
+          <ItemBurger
+            key={item._id}
+            {...item}
+            modalIngredient={modalIngredient}
+            setModalIngredient={setModalIngredient}
+          />
         ))}
-        <h2 className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}>
+        <h2
+          className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+        >
           Начинки
         </h2>
         {mainsList.map((item) => (
-          <ItemBurger key={item._id} {...item} modalIngredient={modalIngredient} setModalIngredient={setModalIngredient} />
+          <ItemBurger
+            key={item._id}
+            {...item}
+            modalIngredient={modalIngredient}
+            setModalIngredient={setModalIngredient}
+          />
         ))}
       </div>
 
@@ -44,8 +69,7 @@ const BurgerIngredients = ({ data, modalIngredient, setModalIngredient }) => {
           modalIngredient={modalIngredient}
           setModalIngredient={setModalIngredient}
         />
-      )
-      }
+      )}
     </section>
   );
 };
