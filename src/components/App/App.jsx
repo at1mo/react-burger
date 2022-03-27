@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { config } from "../../utils/constants";
+import { loadDataBurgers } from "../api/api";
+import { DataContext } from "../../services/appContext";
+import { OrderContext } from "../../services/orderContext";
 
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -10,6 +12,12 @@ import AppFooter from "../app-footer/app-footer";
 import styleApp from "./app.module.css";
 
 const App = () => {
+
+  const [numberOrder, setNumberOrder] = useState({
+    number: "1111",
+    hasError: false
+  })
+
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
@@ -19,34 +27,38 @@ const App = () => {
   const { data, isLoading, hasError } = state;
 
   useEffect(() => {
-    loadData();
+    loadDataBurgers(state, setState);
   }, []);
 
-  const loadData = () => {
-    setState({ ...state, hasError: false, isLoading: true });
-    fetch(config.baseUrl)
-      .then((res) => res.json())
-      .then((data) => setState({ ...state, data, isLoading: false }))
-      .catch(() => setState({ ...state, hasError: true, isLoading: false }));
-  };
+  if (isLoading) return <>Загрузка...</>;
+  if (hasError) return <>Произошла ошибка</>;
 
-  if (isLoading) return <>Загрузка...</>; // Сделать потом отдельный компонент
-  if (hasError) return <>Произошла ошибка</>; // Сделать потом отдельный компонент
 
   return (
     <>
       {data && (
-        <>
+        <DataContext.Provider value={data.data}>
           <AppHeader />
-          <main className={`${styleApp.main} ${styleApp.container}`}>
-            <BurgerIngredients data={data.data} />
-            <BurgerConstructor data={data.data} />
-          </main>
+          <OrderContext.Provider value={{numberOrder, setNumberOrder}}>
+            <main className={`${styleApp.main} ${styleApp.container}`}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </main>
+          </OrderContext.Provider>
           <AppFooter author="А.Тимохин" />
-        </>
+        </DataContext.Provider>
       )}
     </>
   );
 };
 
 export default App;
+
+/**
+ * TODO (10/04/22):
+ * 1. Add Component Loader
+ * 2. Add Component Error page 404
+ * 3. Fix size container (vh)
+ * 4. Fix smoothness opening popup
+ * 5. Create new context for modal
+ */
