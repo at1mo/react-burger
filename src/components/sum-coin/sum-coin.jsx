@@ -30,12 +30,13 @@ const SumCoin = ({ sum, idList, setModalActive }) => {
           getNumberOrder(idList)
             .then((res) => res.json())
             .then((data) => {
+              console.log(data.order.number)
               (data.success &&
                 setNumberOrder({
                   ...numberOrder,
                   number: data.order.number,
-                })) ||
-                setNumberOrder({ ...numberOrder, hasError: true });
+                }))
+                !data.success && setNumberOrder({ ...numberOrder, hasError: true });
             })
             .catch((err) => {
               console.log(err);

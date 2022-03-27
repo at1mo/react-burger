@@ -14,7 +14,7 @@ import styleApp from "./app.module.css";
 const App = () => {
 
   const [numberOrder, setNumberOrder] = useState({
-    number: "1111",
+    number: "",
     hasError: false
   })
 

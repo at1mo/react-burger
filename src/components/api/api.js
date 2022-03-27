@@ -11,6 +11,7 @@ export const loadDataBurgers = (state, setState) => {
 export const getNumberOrder = (listId) => {
   return fetch(`${config.baseUrl}/orders`, {
     method: "POST",
+    headers: config.headers,
     body: JSON.stringify({
       "ingredients": listId,
     }),

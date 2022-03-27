@@ -77,7 +77,7 @@ const BurgerConstructor = () => {
             numOrder={numberOrder.number}
           />
         )
-      ) && console.log("ERROR")}
+      )}
     </div>
   );
 };
