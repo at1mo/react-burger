@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import PropsTypes from "prop-types";
 
 import { getNumberOrder } from "../api/api";
@@ -28,9 +28,7 @@ const SumCoin = ({ sum, idList, setModalActive }) => {
         onClick={() => {
           setModalActive({ status: true });
           getNumberOrder(idList)
-            .then((res) => res.json())
             .then((data) => {
-              console.log(data.order.number)
               (data.success &&
                 setNumberOrder({
                   ...numberOrder,

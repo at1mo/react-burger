@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { loadDataBurgers } from "../api/api";
+import { getDataBurgersFromServer } from "../api/api";
 import { DataContext } from "../../services/appContext";
 import { OrderContext } from "../../services/orderContext";
 
@@ -12,11 +12,10 @@ import AppFooter from "../app-footer/app-footer";
 import styleApp from "./app.module.css";
 
 const App = () => {
-
   const [numberOrder, setNumberOrder] = useState({
     number: "",
-    hasError: false
-  })
+    hasError: false,
+  });
 
   const [state, setState] = useState({
     isLoading: false,
@@ -27,19 +26,22 @@ const App = () => {
   const { data, isLoading, hasError } = state;
 
   useEffect(() => {
-    loadDataBurgers(state, setState);
+    setState({ ...state, hasError: false, isLoading: true });
+
+    getDataBurgersFromServer()
+      .then((data) => setState({ ...state, data, isLoading: false }))
+      .catch(() => setState({ ...state, hasError: true, isLoading: false }));
   }, []);
 
   if (isLoading) return <>Загрузка...</>;
   if (hasError) return <>Произошла ошибка</>;
-
 
   return (
     <>
       {data && (
         <DataContext.Provider value={data.data}>
           <AppHeader />
-          <OrderContext.Provider value={{numberOrder, setNumberOrder}}>
+          <OrderContext.Provider value={{ numberOrder, setNumberOrder }}>
             <main className={`${styleApp.main} ${styleApp.container}`}>
               <BurgerIngredients />
               <BurgerConstructor />
