@@ -57,10 +57,12 @@ const App = () => {
 export default App;
 
 /**
- * TODO (10/04/22):
+ * TODO (12/04/22):
  * 1. Add Component Loader
  * 2. Add Component Error page 404
  * 3. Fix size container (vh)
  * 4. Fix smoothness opening popup
  * 5. Create new context for modal
+ * 6. Fix modal (review)
+ * 7. Add click tabs (scrollIntoView, review)
  */

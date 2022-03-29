@@ -13,7 +13,6 @@ import styleSunCoin from "./sum-coin.module.css";
 
 const SumCoin = ({ sum, idList, setModalActive }) => {
   const { numberOrder, setNumberOrder } = useContext(OrderContext);
-
   return (
     <div className={`${styleSunCoin.container} pt-10 pr-4 `}>
       <div className={`${styleSunCoin.sum_list} pr-10`}>
@@ -49,6 +48,7 @@ const SumCoin = ({ sum, idList, setModalActive }) => {
 
 SumCoin.propsTypes = {
   sum: PropsTypes.number.isRequired,
+  idList: PropsTypes.arrayOf,
   setModalActive: PropsTypes.func,
 };
 
