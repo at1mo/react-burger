@@ -5,7 +5,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styleTabs from "./tabs.module.css"
 
-const Tabs = (props) => {
+const Tabs = () => {
   const [current, setCurrent] = React.useState("Булки");
   return (
     <div className={styleTabs.container}>
@@ -20,10 +20,6 @@ const Tabs = (props) => {
       </Tab>
     </div>
   );
-};
-
-Tabs.propsTypes = {
-  active: PropsTypes.string.isRequired,
 };
 
 export default Tabs;

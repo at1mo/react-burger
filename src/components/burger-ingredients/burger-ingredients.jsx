@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropsTypes from "prop-types";
 
+import { DataContext } from "../../services/appContext";
 import Tabs from "../tabs/tabs";
 import ItemBurger from "../item-burger/item-burger";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 import styleBurgerIngredients from "./burger-ingredients.module.css";
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = () => {
+  const dataIngredients = useContext(DataContext)
+
   const [modalIngredient, setModalIngredient] = useState({
     item: [],
     status: false,
   });
 
-  const bunsList = data.filter((itemBun) => itemBun.type === "bun");
-  const saucesList = data.filter((itemBun) => itemBun.type === "sauce");
-  const mainsList = data.filter((itemBun) => itemBun.type === "main");
+  const bunsList = dataIngredients.filter((itemBun) => itemBun.type === "bun");
+  const saucesList = dataIngredients.filter((itemBun) => itemBun.type === "sauce");
+  const mainsList = dataIngredients.filter((itemBun) => itemBun.type === "main");
 
   return (
     <section className={styleBurgerIngredients.section}>
@@ -72,12 +75,6 @@ const BurgerIngredients = ({ data }) => {
       )}
     </section>
   );
-};
-
-BurgerIngredients.propsTypes = {
-  data: PropsTypes.arrayOf.isRequired,
-  modalIngredient: PropsTypes.bool,
-  setModalIngredient: PropsTypes.func,
 };
 
 export default BurgerIngredients;
