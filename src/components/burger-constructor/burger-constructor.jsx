@@ -16,19 +16,19 @@ import SumCoin from "../sum-coin/sum-coin";
 
 const BurgerConstructor = () => {
   const data = addedBurgers; // for test
-  const {numberOrder} = useContext(OrderContext);
+  const { numberOrder } = useContext(OrderContext);
 
   const [modalActive, setModalActive] = useState({ status: false });
 
   const [bunList] = data.filter((item) => item.type === "bun");
   const ordersList = data.filter((item) => item.type !== "bun").sort(sortDesc);
 
-  const idList = ordersList.map((item) => item._id) // Придумать лучшее решение
-  idList.push(bunList._id)
+  const idList = ordersList.map((item) => item._id); // Придумать лучшее решение
+  idList.push(bunList._id);
 
   const sumOrder = ordersList.reduce(
     (previousValue, currentValue) => previousValue + currentValue.price,
-    bunList.price*2
+    bunList.price * 2
   );
 
   return (
@@ -69,14 +69,12 @@ const BurgerConstructor = () => {
       </div>
       <SumCoin sum={sumOrder} idList={idList} setModalActive={setModalActive} />
 
-      {!numberOrder.hasError && (
-        modalActive.status && (
-          <OrderDetails
-            modalActive={modalActive}
-            setModalActive={setModalActive}
-            numOrder={numberOrder.number}
-          />
-        )
+      {!numberOrder.hasError && modalActive.status && (
+        <OrderDetails
+          modalActive={modalActive}
+          setModalActive={setModalActive}
+          numOrder={numberOrder.number}
+        />
       )}
     </div>
   );
