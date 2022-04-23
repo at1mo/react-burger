@@ -1,28 +1,28 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import PropsTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styleTabs from "./tabs.module.css";
 
-const Tabs = () => {
-  const [current, setCurrent] = React.useState("bun");
+const Tabs = ({statusTab, setTab}) => {
+
 
   const handleClickTab = (e) => {
-    setCurrent(e);
+    setTab(e);
     const sectionScroll = document.querySelector(`#${e}`);
-    sectionScroll.scrollIntoView({block: "start", behavior: 'smooth'});
+    sectionScroll.scrollIntoView({ block: "start", behavior: "smooth" });
   };
 
   return (
     <div className={styleTabs.container}>
-      <Tab value="bun" active={current === "bun"} onClick={handleClickTab}>
+      <Tab value="bun" active={statusTab === "bun"} onClick={handleClickTab}>
         Булки
       </Tab>
-      <Tab value="sauce" active={current === "sauce"} onClick={handleClickTab}>
+      <Tab value="sauce" active={statusTab === "sauce"} onClick={handleClickTab}>
         Соусы
       </Tab>
-      <Tab value="main" active={current === "main"} onClick={handleClickTab}>
+      <Tab value="main" active={statusTab === "main"} onClick={handleClickTab}>
         Начинки
       </Tab>
     </div>
