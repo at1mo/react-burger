@@ -27,6 +27,7 @@ const BurgerIngredients = () => {
       <div className={styleBurgerIngredients.container}>
         <h2
           className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+          id="bun"
         >
           Булки
         </h2>
@@ -41,6 +42,7 @@ const BurgerIngredients = () => {
 
         <h2
           className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+          id="sauce"
         >
           Соусы
         </h2>
@@ -54,6 +56,7 @@ const BurgerIngredients = () => {
         ))}
         <h2
           className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
+          id="main"
         >
           Начинки
         </h2>
