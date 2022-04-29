@@ -31,7 +31,7 @@ const BurgerIngredients = () => {
     const currentPosition =
       containerRef.current.offsetTop + containerRef.current.scrollTop;
 
-    const arr = [
+    const arrayPostions = [
       {
         name: "bun",
         position: Math.abs(bunRef.current.offsetTop - currentPosition),
@@ -46,7 +46,7 @@ const BurgerIngredients = () => {
       },
     ];
 
-    const minElement = arr.reduce(
+    const minElement = arrayPostions.reduce(
       (acc, el) => (el.position < acc.position ? el : acc),
       { name: "bun", position: Infinity }
     );

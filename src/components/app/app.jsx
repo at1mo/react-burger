@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { getDataBurgersFromServer } from "../api/api";
+import { useSelector } from 'react-redux';
 import { DataContext } from "../../services/appContext";
 import { OrderContext } from "../../services/orderContext";
 
@@ -12,6 +13,9 @@ import AppFooter from "../app-footer/app-footer";
 import styleApp from "./app.module.css";
 
 const App = () => {
+  const step = useSelector(state => state); // get data in store
+  console.log(step);
+
   const [numberOrder, setNumberOrder] = useState({
     number: "",
     hasError: false,
@@ -57,12 +61,11 @@ const App = () => {
 export default App;
 
 /**
- * TODO (12/04/22):
+ * TODO:
  * 1. Add Component Loader
  * 2. Add Component Error page 404
  * 3. Fix size container (vh)
  * 4. Fix smoothness opening popup
  * 5. Create new context for modal
  * 6. Fix modal (review)
- * 7. Add click tabs (scrollIntoView, review)
  */
