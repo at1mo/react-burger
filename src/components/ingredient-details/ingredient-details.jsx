@@ -7,37 +7,38 @@ import styleIngredientDetails from "./ingredient-details.module.css";
 
 const IngredientDetails = ({
   modalIngredient,
-  setModalIngredient
+  closeModalIngredient
 }) => {
+
   return (
-    <Modal name="Детали ингредиента" modalActive={modalIngredient.status} setModalActive={setModalIngredient}>
-      <img className={styleIngredientDetails.image} src={modalIngredient.item.image} />
-      <p className="text text_type_main-medium pt-4">{modalIngredient.item.name}</p>
+    <Modal name="Детали ингредиента" closeModalIngredient={closeModalIngredient}>
+      <img className={styleIngredientDetails.image} src={modalIngredient.image} />
+      <p className="text text_type_main-medium pt-4">{modalIngredient.name}</p>
       <div className={`${styleIngredientDetails.container} pt-8`}>
         {/* Сделать потом компонентом */}
         <div
           className="text text_type_main-default text_color_inactive"
         >
           <p className={`${styleIngredientDetails.item}pb-2`}>Калории,ккал</p>
-          <span className="text text_type_digits-default">{modalIngredient.item.calories}</span>
+          <span className="text text_type_digits-default">{modalIngredient.calories}</span>
         </div>
         <div
           className="text text_type_main-default text_color_inactive"
         >
           <p className={`${styleIngredientDetails.item}pb-2`}>Белки, г</p>
-          <span className="text text_type_digits-default">{modalIngredient.item.proteins}</span>
+          <span className="text text_type_digits-default">{modalIngredient.proteins}</span>
         </div>
         <div
           className="text text_type_main-default text_color_inactive"
         >
           <p className={`${styleIngredientDetails.item}pb-2`}>Жиры, г</p>
-          <span className="text text_type_digits-default">{modalIngredient.item.fat}</span>
+          <span className="text text_type_digits-default">{modalIngredient.fat}</span>
         </div>
         <div
           className="text text_type_main-default text_color_inactive"
         >
           <p className={`${styleIngredientDetails.item}pb-2`}>Углеводы, г</p>
-          <span className="text text_type_digits-default">{modalIngredient.item.carbohydrates}</span>
+          <span className="text text_type_digits-default">{modalIngredient.carbohydrates}</span>
         </div>
       </div>
     </Modal>
@@ -46,7 +47,7 @@ const IngredientDetails = ({
 
 IngredientDetails.propsTypes = {
   modalIngredient: PropsTypes.arrayOf.isRequired,
-  setModalIngredient: PropsTypes.func,
+  closeModalIngredient: PropsTypes.func,
 };
 
 export default IngredientDetails;

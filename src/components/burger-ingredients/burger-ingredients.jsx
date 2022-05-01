@@ -1,15 +1,25 @@
-import React, { useContext, useRef, useState } from "react";
-import PropsTypes from "prop-types";
+import React, { useRef, useState } from "react";
 
-import { DataContext } from "../../services/appContext";
+import { useDispatch, useSelector } from "react-redux";
+
 import Tabs from "../tabs/tabs";
 import ItemBurger from "../item-burger/item-burger";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/details";
 
 import styleBurgerIngredients from "./burger-ingredients.module.css";
 
 const BurgerIngredients = () => {
-  const dataIngredients = useContext(DataContext);
+  const dispatch = useDispatch();
+
+  const dataIngredients = useSelector((store) => store.ingredients.ingredients);
+  const { isOpen, ingredient } = useSelector((state) => state.details);
+
+  const closeModalIngredient = () => {
+    dispatch({
+      type: CLOSE_INGREDIENT_DETAILS,
+    });
+  };
 
   const [currentTab, setTab] = useState("bun");
 
@@ -18,14 +28,13 @@ const BurgerIngredients = () => {
   const mainRef = useRef(null);
   const containerRef = useRef(null);
 
-  const [modalIngredient, setModalIngredient] = useState({
-    item: [],
-    status: false,
-  });
-
   const bunsList = dataIngredients.filter((itemBun) => itemBun.type === "bun");
-  const saucesList = dataIngredients.filter((itemBun) => itemBun.type === "sauce");
-  const mainsList = dataIngredients.filter((itemBun) => itemBun.type === "main");
+  const saucesList = dataIngredients.filter(
+    (itemBun) => itemBun.type === "sauce"
+  );
+  const mainsList = dataIngredients.filter(
+    (itemBun) => itemBun.type === "main"
+  );
 
   function onScroll() {
     const currentPosition =
@@ -57,7 +66,7 @@ const BurgerIngredients = () => {
   return (
     <section className={styleBurgerIngredients.section}>
       <h1 className="pt-10 pb-5 text text_type_main-large">Соберите бургер</h1>
-      <Tabs active="Булки" statusTab={currentTab} setTab={setTab} />
+      <Tabs statusTab={currentTab} setTab={setTab} />
       <div
         className={styleBurgerIngredients.container}
         ref={containerRef}
@@ -71,12 +80,7 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         {bunsList.map((item) => (
-          <ItemBurger
-            key={item._id}
-            {...item}
-            modalIngredient={modalIngredient}
-            setModalIngredient={setModalIngredient}
-          />
+          <ItemBurger key={item._id} {...item} />
         ))}
 
         <h2
@@ -87,12 +91,7 @@ const BurgerIngredients = () => {
           Соусы
         </h2>
         {saucesList.map((item) => (
-          <ItemBurger
-            key={item._id}
-            {...item}
-            modalIngredient={modalIngredient}
-            setModalIngredient={setModalIngredient}
-          />
+          <ItemBurger key={item._id} {...item} />
         ))}
         <h2
           className={`${styleBurgerIngredients.text} pt-10 pb-6 text text_type_main-medium`}
@@ -102,19 +101,14 @@ const BurgerIngredients = () => {
           Начинки
         </h2>
         {mainsList.map((item) => (
-          <ItemBurger
-            key={item._id}
-            {...item}
-            modalIngredient={modalIngredient}
-            setModalIngredient={setModalIngredient}
-          />
+          <ItemBurger key={item._id} {...item} />
         ))}
       </div>
 
-      {modalIngredient.status && (
+      {isOpen && (
         <IngredientDetails
-          modalIngredient={modalIngredient}
-          setModalIngredient={setModalIngredient}
+          modalIngredient={ingredient}
+          closeModalIngredient={closeModalIngredient}
         />
       )}
     </section>

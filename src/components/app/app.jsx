@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
-import { getDataBurgersFromServer } from "../api/api";
-import { useSelector } from 'react-redux';
-import { DataContext } from "../../services/appContext";
-import { OrderContext } from "../../services/orderContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredients";
 
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -11,49 +9,26 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import AppFooter from "../app-footer/app-footer";
 
 import styleApp from "./app.module.css";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
-  const step = useSelector(state => state); // get data in store
-  console.log(step);
-
-  const [numberOrder, setNumberOrder] = useState({
-    number: "",
-    hasError: false,
-  });
-
-  const [state, setState] = useState({
-    isLoading: false,
-    hasError: false,
-    data: null,
-  });
-
-  const { data, isLoading, hasError } = state;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setState({ ...state, hasError: false, isLoading: true });
-
-    getDataBurgersFromServer()
-      .then((data) => setState({ ...state, data, isLoading: false }))
-      .catch(() => setState({ ...state, hasError: true, isLoading: false }));
-  }, []);
-
-  if (isLoading) return <>Загрузка...</>;
-  if (hasError) return <>Произошла ошибка</>;
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <>
-      {data && (
-        <DataContext.Provider value={data.data}>
-          <AppHeader />
-          <OrderContext.Provider value={{ numberOrder, setNumberOrder }}>
-            <main className={`${styleApp.main} ${styleApp.container}`}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </main>
-          </OrderContext.Provider>
-          <AppFooter author="А.Тимохин" />
-        </DataContext.Provider>
-      )}
+      <AppHeader />
+      <main className={`${styleApp.main} ${styleApp.container}`}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          {/* <BurgerConstructor /> */}
+        </DndProvider>
+      </main>
+      <AppFooter author="А.Тимохин" />
     </>
   );
 };

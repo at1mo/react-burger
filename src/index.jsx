@@ -21,8 +21,6 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 // Инициализируем хранилище, использовав расширитель
 const store = createStore(rootReducer, enhancer);
 
-console.log(store);
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
