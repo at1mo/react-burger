@@ -14,22 +14,30 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    (store) => store.ingredients
+  );
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
 
+  if (ingredientsRequest) return <>Загрузка...</>;
+  if (ingredientsFailed) return <>Произошла ошибка</>;
+
   return (
-    <>
-      <AppHeader />
-      <main className={`${styleApp.main} ${styleApp.container}`}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          {/* <BurgerConstructor /> */}
-        </DndProvider>
-      </main>
-      <AppFooter author="А.Тимохин" />
-    </>
+    !!ingredients.length && (
+      <>
+        <AppHeader />
+        <main className={`${styleApp.main} ${styleApp.container}`}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
+        </main>
+        <AppFooter author="А.Тимохин" />
+      </>
+    )
   );
 };
 
@@ -41,6 +49,4 @@ export default App;
  * 2. Add Component Error page 404
  * 3. Fix size container (vh)
  * 4. Fix smoothness opening popup
- * 5. Create new context for modal
- * 6. Fix modal (review)
  */

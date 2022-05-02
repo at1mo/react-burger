@@ -10,17 +10,25 @@ export function getIngredients() {
       type: GET_INGREDIENTS_REQUEST,
     });
 
-    getDataBurgersFromServer().then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          ingredients: res.data,
-        });
-      } else {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED,
-        });
-      }
-    });
+    getDataBurgersFromServer()
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_INGREDIENTS_SUCCESS,
+            ingredients: res.data,
+          });
+        } else {
+          dispatch({
+            type: GET_INGREDIENTS_FAILED,
+          });
+        }
+      })
+      .catch(() => {
+        {
+          dispatch({
+            type: GET_INGREDIENTS_FAILED,
+          });
+        }
+      });
   };
 }

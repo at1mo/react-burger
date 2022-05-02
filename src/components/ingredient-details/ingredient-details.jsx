@@ -11,7 +11,7 @@ const IngredientDetails = ({
 }) => {
 
   return (
-    <Modal name="Детали ингредиента" closeModalIngredient={closeModalIngredient}>
+    <Modal name="Детали ингредиента" closeModal={closeModalIngredient}>
       <img className={styleIngredientDetails.image} src={modalIngredient.image} />
       <p className="text text_type_main-medium pt-4">{modalIngredient.name}</p>
       <div className={`${styleIngredientDetails.container} pt-8`}>

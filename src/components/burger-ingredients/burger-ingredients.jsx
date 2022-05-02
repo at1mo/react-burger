@@ -29,12 +29,8 @@ const BurgerIngredients = () => {
   const containerRef = useRef(null);
 
   const bunsList = dataIngredients.filter((itemBun) => itemBun.type === "bun");
-  const saucesList = dataIngredients.filter(
-    (itemBun) => itemBun.type === "sauce"
-  );
-  const mainsList = dataIngredients.filter(
-    (itemBun) => itemBun.type === "main"
-  );
+  const saucesList = dataIngredients.filter((itemBun) => itemBun.type === "sauce");
+  const mainsList = dataIngredients.filter((itemBun) => itemBun.type === "main");
 
   function onScroll() {
     const currentPosition =
@@ -56,7 +52,7 @@ const BurgerIngredients = () => {
     ];
 
     const minElement = arrayPostions.reduce(
-      (acc, el) => (el.position < acc.position ? el : acc),
+      (acc, item) => (item.position < acc.position ? item : acc),
       { name: "bun", position: Infinity }
     );
 

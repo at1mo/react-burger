@@ -12,7 +12,7 @@ const modalRoot = document.getElementById("react-modals");
 const Modal = (props) => {
   const handlerEscClose = (evt) => {
     if (evt.key === "Escape") {
-      props.closeModalIngredient();
+      props.closeModal();
     }
   };
 
@@ -23,7 +23,7 @@ const Modal = (props) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay onClick={props.closeModalIngredient}>
+    <ModalOverlay onClick={props.closeModal}>
       <div
         className={`${styleModal.container} pt-10 pb-15`}
         onClick={(e) => {
@@ -32,7 +32,7 @@ const Modal = (props) => {
       >
         <div className={`${styleModal.header} pl-10 pr-10`}>
           <h2 className="text text_type_main-large">{props.name}</h2>
-          <ButtonClosePopup onClick={props.closeModalIngredient} />
+          <ButtonClosePopup onClick={props.closeModal} />
         </div>
         <div className={styleModal.container_order}>{props.children}</div>
       </div>
@@ -43,7 +43,7 @@ const Modal = (props) => {
 
 Modal.propsTypes = {
   name: PropsTypes.string,
-  closeModalIngredient: PropsTypes.func.isRequired,
+  closeModal: PropsTypes.func.isRequired,
   children: PropsTypes.children,
 };
 

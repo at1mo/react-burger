@@ -18,9 +18,7 @@ export const getNumberOrder = (listId) => {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
-      "ingredients": listId,
+      ingredients: listId,
     }),
   }).then(checkResponse);
 };
-
-
