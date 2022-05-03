@@ -6,9 +6,9 @@ import doneImagePath from "../../images/done.svg";
 
 import styleOrderDetails from "./order-details.module.css";
 
-const OrderDetails = ({ modalActive, setModalActive, numOrder }) => {
+const OrderDetails = ({ closeModalOrderDetails, numOrder }) => {
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive}>
+    <Modal closeModal={closeModalOrderDetails}>
       <h2
         className={`${styleOrderDetails.title} text text_type_digits-large pb-8 pt-4`}
       >
@@ -31,8 +31,7 @@ const OrderDetails = ({ modalActive, setModalActive, numOrder }) => {
 };
 
 OrderDetails.propsTypes = {
-  modalActive: PropsTypes.arrayOf.isRequired,
-  setModalActive: PropsTypes.func.isRequired,
+  closeModalOrderDetails: PropsTypes.func.isRequired,
   numOrder: PropsTypes.number.isRequired,
 };
 

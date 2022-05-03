@@ -1,4 +1,4 @@
-import { config } from "../../utils/constants";
+import { config } from "./constants";
 
 const checkResponse = (response) => {
   if (response.ok) {
@@ -18,9 +18,7 @@ export const getNumberOrder = (listId) => {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
-      "ingredients": listId,
+      ingredients: listId,
     }),
   }).then(checkResponse);
 };
-
-

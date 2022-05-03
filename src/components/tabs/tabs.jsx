@@ -3,23 +3,37 @@ import PropsTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleTabs from "./tabs.module.css"
+import styleTabs from "./tabs.module.css";
 
-const Tabs = () => {
-  const [current, setCurrent] = React.useState("Булки");
+const Tabs = ({ statusTab, setTab }) => {
+  const handleClickTab = (e) => {
+    setTab(e);
+    const sectionScroll = document.querySelector(`#${e}`);
+    sectionScroll.scrollIntoView({ block: "start", behavior: "smooth" });
+  };
+
   return (
     <div className={styleTabs.container}>
-      <Tab value="Булки" active={current === "Булки"} onClick={setCurrent}>
+      <Tab value="bun" active={statusTab === "bun"} onClick={handleClickTab}>
         Булки
       </Tab>
-      <Tab value="Соусы" active={current === "Соусы"} onClick={setCurrent}>
+      <Tab
+        value="sauce"
+        active={statusTab === "sauce"}
+        onClick={handleClickTab}
+      >
         Соусы
       </Tab>
-      <Tab value="Начинки" active={current === "Начинки"} onClick={setCurrent}>
+      <Tab value="main" active={statusTab === "main"} onClick={handleClickTab}>
         Начинки
       </Tab>
     </div>
   );
+};
+
+Tabs.propsTypes = {
+  statusTab: PropsTypes.string.isRequired,
+  setTab: PropsTypes.func,
 };
 
 export default Tabs;

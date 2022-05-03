@@ -9,7 +9,3 @@
   column-gap: 20px;
   grid-template-columns: repeat(4, 1fr);
 }
-
-.item {
-  margin: 0;
-}
