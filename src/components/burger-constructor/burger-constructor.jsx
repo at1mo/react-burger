@@ -91,7 +91,6 @@ const BurgerConstructor = () => {
   }, [bun, fillings]);
 
   const orderDetails = () => {
-    console.log('idLIst', idList)
     dispatch(getOrder(idList));
     dispatch({
       type: OPEN_ORDER_DETAILS,
@@ -108,7 +107,6 @@ const BurgerConstructor = () => {
   };
 
   const borderColor = bunIsHover || fillingsIsHover ? "#4C4CFF" : "transparent"; // придумать класс
-  console.log(bun)
   return (
     <div
       ref={dropFillings}
