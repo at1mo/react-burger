@@ -30,9 +30,7 @@ const BurgerConstructor = () => {
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const bun = useSelector((store) => store.burgerConstructor.bun);
   const fillings = useSelector((store) => store.burgerConstructor.fillings);
-  const items = [...bun, ...bun, ...fillings];
   const generateId = useSelector((store) => store.burgerConstructor.generateId);
-
   if (!bun.length) {
     ingredients.find((item) => {
       if (item.type === "bun") {
@@ -40,6 +38,7 @@ const BurgerConstructor = () => {
       }
     });
   }
+  const items = [...bun, ...bun, ...fillings];
 
   const idList = items.map((item) => item._id);
   const order = useSelector((store) => store.order.order);
@@ -92,6 +91,7 @@ const BurgerConstructor = () => {
   }, [bun, fillings]);
 
   const orderDetails = () => {
+    console.log('idLIst', idList)
     dispatch(getOrder(idList));
     dispatch({
       type: OPEN_ORDER_DETAILS,
@@ -108,7 +108,7 @@ const BurgerConstructor = () => {
   };
 
   const borderColor = bunIsHover || fillingsIsHover ? "#4C4CFF" : "transparent"; // придумать класс
-
+  console.log(bun)
   return (
     <div
       ref={dropFillings}
@@ -144,7 +144,7 @@ const BurgerConstructor = () => {
           );
         })}
       </div>
-      {!!bun.length && (
+      {bun.length && (
         <div className={`${styleBurgerConstructors.item} pl-8 pr-8 pt-4`}>
           <ConstructorElement
             type="bottom"
