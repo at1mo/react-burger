@@ -8,9 +8,10 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import AppFooter from "../app-footer/app-footer";
 
-import styleApp from "./app.module.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+
+import styleApp from "./app.module.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const App = () => {
   if (ingredientsFailed) return <>Произошла ошибка</>;
 
   return (
-    !!ingredients.length && (
+    ingredients.length && (
       <>
         <AppHeader />
         <main className={`${styleApp.main} ${styleApp.container}`}>

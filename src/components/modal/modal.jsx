@@ -9,10 +9,10 @@ import styleModal from "./modal.module.css";
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = (props) => {
+const Modal = ({ name, closeModal, children}) => {
   const handlerEscClose = (evt) => {
     if (evt.key === "Escape") {
-      props.closeModal();
+      closeModal();
     }
   };
 
@@ -23,7 +23,7 @@ const Modal = (props) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay onClick={props.closeModal}>
+    <ModalOverlay onClick={closeModal}>
       <div
         className={`${styleModal.container} pt-10 pb-15`}
         onClick={(e) => {
@@ -31,10 +31,10 @@ const Modal = (props) => {
         }}
       >
         <div className={`${styleModal.header} pl-10 pr-10`}>
-          <h2 className="text text_type_main-large">{props.name}</h2>
-          <ButtonClosePopup onClick={props.closeModal} />
+          <h2 className="text text_type_main-large">{name}</h2>
+          <ButtonClosePopup onClick={closeModal} />
         </div>
-        <div className={styleModal.container_order}>{props.children}</div>
+        <div className={styleModal.container_order}>{children}</div>
       </div>
     </ModalOverlay>,
     modalRoot

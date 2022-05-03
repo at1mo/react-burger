@@ -1,4 +1,4 @@
-import { getDataBurgersFromServer } from "../../components/api/api";
+import { getDataBurgersFromServer } from "../../utils/api";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";

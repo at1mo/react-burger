@@ -73,7 +73,7 @@ const ItemBurgerConstructor = ({ item, index, moveItem }) => {
         text={item.name}
         price={item.price}
         thumbnail={item.image}
-        handleClose={(e) => onDelete(e.target)}
+        handleClose={onDelete}
       />
     </div>
   );

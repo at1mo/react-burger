@@ -5,7 +5,10 @@ import styleModalOverlay from "./modal-overlay.module.css";
 
 const ModalOverlay = (props) => {
   return (
-    <div className={`${styleModalOverlay.overlay} ${styleModalOverlay.active}`} onClick={props.onClick}>
+    <div
+      className={`${styleModalOverlay.overlay} ${styleModalOverlay.active}`}
+      onClick={props.onClick}
+    >
       {props.children}
     </div>
   );
@@ -13,7 +16,10 @@ const ModalOverlay = (props) => {
 
 ModalOverlay.propsTypes = {
   onClick: PropsTypes.func.isRequired,
-  children: PropsTypes.children,
+  children: PropsTypes.oneOfType([
+    PropsTypes.arrayOf(PropsTypes.node),
+    PropsTypes.node,
+  ]).isRequired,
 };
 
 export default ModalOverlay;

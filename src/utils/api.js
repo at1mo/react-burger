@@ -1,4 +1,4 @@
-import { config } from "../../utils/constants";
+import { config } from "./constants";
 
 const checkResponse = (response) => {
   if (response.ok) {

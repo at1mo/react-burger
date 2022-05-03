@@ -1,45 +1,24 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
+import ItemDetails from "../item-details/item-details";
 import Modal from "../modal/modal";
 
 import styleIngredientDetails from "./ingredient-details.module.css";
 
-const IngredientDetails = ({
-  modalIngredient,
-  closeModalIngredient
-}) => {
-
+const IngredientDetails = ({ modalIngredient, closeModalIngredient }) => {
   return (
     <Modal name="Детали ингредиента" closeModal={closeModalIngredient}>
-      <img className={styleIngredientDetails.image} src={modalIngredient.image} />
+      <img
+        className={styleIngredientDetails.image}
+        src={modalIngredient.image}
+      />
       <p className="text text_type_main-medium pt-4">{modalIngredient.name}</p>
       <div className={`${styleIngredientDetails.container} pt-8`}>
-        {/* Сделать потом компонентом */}
-        <div
-          className="text text_type_main-default text_color_inactive"
-        >
-          <p className={`${styleIngredientDetails.item}pb-2`}>Калории,ккал</p>
-          <span className="text text_type_digits-default">{modalIngredient.calories}</span>
-        </div>
-        <div
-          className="text text_type_main-default text_color_inactive"
-        >
-          <p className={`${styleIngredientDetails.item}pb-2`}>Белки, г</p>
-          <span className="text text_type_digits-default">{modalIngredient.proteins}</span>
-        </div>
-        <div
-          className="text text_type_main-default text_color_inactive"
-        >
-          <p className={`${styleIngredientDetails.item}pb-2`}>Жиры, г</p>
-          <span className="text text_type_digits-default">{modalIngredient.fat}</span>
-        </div>
-        <div
-          className="text text_type_main-default text_color_inactive"
-        >
-          <p className={`${styleIngredientDetails.item}pb-2`}>Углеводы, г</p>
-          <span className="text text_type_digits-default">{modalIngredient.carbohydrates}</span>
-        </div>
+        <ItemDetails name={"Калории,ккал"} weight={modalIngredient.calories} />
+        <ItemDetails name={"Белки, г"} weight={modalIngredient.proteins} />
+        <ItemDetails name={"Жиры, г"} weight={modalIngredient.fat} />
+        <ItemDetails name={"Углеводы, г"} weight={modalIngredient.carbohydrates} />
       </div>
     </Modal>
   );

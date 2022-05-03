@@ -1,4 +1,4 @@
-import { getNumberOrder } from "../../components/api/api";
+import { getNumberOrder } from "../../utils/api";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
@@ -12,17 +12,25 @@ export function getOrder(ingredients) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-    getNumberOrder(ingredients).then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          order: res.order,
-        });
-      } else {
-        dispatch({
-          type: GET_ORDER_FAILED,
-        });
-      }
-    });
+    getNumberOrder(ingredients)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_ORDER_SUCCESS,
+            order: res.order,
+          });
+        } else {
+          dispatch({
+            type: GET_ORDER_FAILED,
+          });
+        }
+      })
+      .catch(() => {
+        {
+          dispatch({
+            type: GET_ORDER_FAILED,
+          });
+        }
+      });
   };
 }

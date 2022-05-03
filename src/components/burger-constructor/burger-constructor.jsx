@@ -27,14 +27,14 @@ import styleBurgerConstructors from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const data = useSelector((store) => store.ingredients.ingredients);
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
   const bun = useSelector((store) => store.burgerConstructor.bun);
   const fillings = useSelector((store) => store.burgerConstructor.fillings);
   const items = [...bun, ...bun, ...fillings];
   const generateId = useSelector((store) => store.burgerConstructor.generateId);
 
   if (!bun.length) {
-    data.find((item) => {
+    ingredients.find((item) => {
       if (item.type === "bun") {
         return (bun[0] = item);
       }
@@ -43,7 +43,6 @@ const BurgerConstructor = () => {
 
   const idList = items.map((item) => item._id);
   const order = useSelector((store) => store.order.order);
-  const openOrderDetails = useSelector((state) => state.order.isOpen);
 
   const [{ bunIsHover }, dropBun] = useDrop({
     accept: "bun",
@@ -51,7 +50,7 @@ const BurgerConstructor = () => {
       dispatch({
         type: ADD_BUN,
         ...item,
-        payload: data.find((el) => el._id === item.id),
+        payload: ingredients.find((el) => el._id === item.id),
       });
     },
     collect: (monitor) => ({
@@ -59,7 +58,7 @@ const BurgerConstructor = () => {
     }),
   });
 
-  const [{ fillingsIsHover }, dropfillings] = useDrop({
+  const [{ fillingsIsHover }, dropFillings] = useDrop({
     accept: ["main", "sauce"],
     drop(item) {
       dispatch({
@@ -69,7 +68,7 @@ const BurgerConstructor = () => {
       dispatch({
         type: ADD_FILLING,
         ...item,
-        payload: data.find((el) => el._id === item.id),
+        payload: ingredients.find((el) => el._id === item.id),
       });
     },
     collect: (monitor) => ({
@@ -88,7 +87,7 @@ const BurgerConstructor = () => {
   const sumOrder = useMemo(() => {
     return fillings.reduce(
       (previousValue, currentValue) => previousValue + currentValue.price,
-      bun[0].price * 2
+      bun[0].price
     );
   }, [bun, fillings]);
 
@@ -112,7 +111,7 @@ const BurgerConstructor = () => {
 
   return (
     <div
-      ref={dropfillings}
+      ref={dropFillings}
       className={`${styleBurgerConstructors.section} pt-25 pl-4 pr-4`}
     >
       {!!bun.length && (
@@ -162,7 +161,7 @@ const BurgerConstructor = () => {
         disabled={sumOrder <= 0}
       />
 
-      {openOrderDetails && order && (
+      { order && (
         <OrderDetails
           closeModalOrderDetails={closeOrderDetails}
           numOrder={order.number}
