@@ -12,6 +12,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import styleApp from "./app.module.css";
+import Login from "../login/login";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,12 +32,13 @@ const App = () => {
       <>
         <AppHeader />
         <main className={`${styleApp.main} ${styleApp.container}`}>
-          <DndProvider backend={HTML5Backend}>
+          <Login />
+          {/* <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
-          </DndProvider>
+          </DndProvider> */}
         </main>
-        <AppFooter author="А.Тимохин" />
+        {/* <AppFooter author="А.Тимохин" /> */}
       </>
     )
   );
