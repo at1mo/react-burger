@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styleLogin from "./login.module.css";
+import styleRegister from "./register.module.css";
 
-const Login = () => {
+const Register = () => {
   return (
-    <div className={`${styleLogin.container}`}>
-      <h2 className={`m-0`}>Вход</h2>
+    <div className={`${styleRegister.container}`}>
+      <h2 className={`m-0`}>Регистрация</h2>
+      <div className="pt-6">
+        <Input
+          type={"text"}
+          placeholder={"Имя"}
+          onChange={(e) => e.target.value}
+          value={""}
+          name={"name"}
+        />
+      </div>
       <div className="pt-6">
         <Input
           type={"email"}
@@ -31,17 +40,14 @@ const Login = () => {
       </div>
       <div className="pt-6 pb-20">
         <Button type="primary" size="medium" onClick={""} disabled={""}>
-          Войти
+          Зарегистрироваться
         </Button>
       </div>
       <p className={`m-0 pb-4`}>
-        Вы — новый пользователь? <a href="#">Зарегистрироваться</a>
-      </p>
-      <p className={`m-0`}>
-        Забыли пароль? <a href="#">Восстановить пароль</a>
+        Уже зарегистрированы? <a href="#">Войти</a>
       </p>
     </div>
   );
 };
 
-export default Login;
+export default Register;
