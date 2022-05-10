@@ -13,8 +13,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import styleApp from "./app.module.css";
 
-import Register from "../register/register";
-
 const App = () => {
   const dispatch = useDispatch();
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
@@ -33,11 +31,10 @@ const App = () => {
       <>
         <AppHeader />
         <main className={`${styleApp.main} ${styleApp.container}`}>
-          <Register/>
-          {/* <DndProvider backend={HTML5Backend}>
+          <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
-          </DndProvider> */}
+          </DndProvider>
         </main>
         <AppFooter author="А.Тимохин" />
       </>

@@ -35,10 +35,16 @@ const Login = () => {
         </Button>
       </div>
       <p className={`m-0 pb-4`}>
-        Вы — новый пользователь? <a href="#">Зарегистрироваться</a>
+        Вы — новый пользователь?{" "}
+        <a className={styleLogin.link} href="#">
+          Зарегистрироваться
+        </a>
       </p>
       <p className={`m-0`}>
-        Забыли пароль? <a href="#">Восстановить пароль</a>
+        Забыли пароль?{" "}
+        <a className={styleLogin.link} href="#">
+          Восстановить пароль
+        </a>
       </p>
     </div>
   );

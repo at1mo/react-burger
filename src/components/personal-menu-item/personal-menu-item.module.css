@@ -1,0 +1,14 @@
+.item {
+  cursor: pointer;
+  list-style: none;
+  color: var(--text-inactive-color);
+  transition: var(--common-transition);
+}
+
+.item:hover {
+  color: var(--text-active-color);
+}
+
+.item_active {
+  color: var(--text-active-color);
+}

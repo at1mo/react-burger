@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 
 import {
   Input,
@@ -44,7 +44,10 @@ const Register = () => {
         </Button>
       </div>
       <p className={`m-0 pb-4`}>
-        Уже зарегистрированы? <a href="#">Войти</a>
+        Уже зарегистрированы?{" "}
+        <a className={styleRegister.link} href="#">
+          Войти
+        </a>
       </p>
     </div>
   );
