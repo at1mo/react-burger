@@ -6,7 +6,16 @@
   width: 480px;
 }
 
+.text {
+  color: var(--text-inactive-color);
+}
+
 .link {
   text-decoration: none;
   color: var(--colors-interface-accent);
+}
+
+.input,
+.input div:not(input + div) {
+  width: 100%;
 }
