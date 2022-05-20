@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Input,
@@ -49,21 +50,21 @@ export const LoginPage = () => {
         />
       </div>
       <div className="pt-6 pb-20">
-        <Button type="primary" size="medium" disabled={""} htmlType={"submit"} >
+        <Button type="primary" size="medium" disabled={""} htmlType={"submit"}>
           Войти
         </Button>
       </div>
       <p className={`${styleLogin.text} m-0 pb-4`}>
         Вы — новый пользователь?{" "}
-        <a className={styleLogin.link} href="#">
+        <Link className={styleLogin.link} to="/registr">
           Зарегистрироваться
-        </a>
+        </Link>
       </p>
       <p className={`${styleLogin.text} m-0`}>
         Забыли пароль?{" "}
-        <a className={styleLogin.link} href="#">
+        <Link className={styleLogin.link} to="/forgot-password">
           Восстановить пароль
-        </a>
+        </Link>
       </p>
     </form>
   );

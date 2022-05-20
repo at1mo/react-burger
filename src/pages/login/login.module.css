@@ -13,6 +13,11 @@
 .link {
   text-decoration: none;
   color: var(--colors-interface-accent);
+  transition: var(--common-transition);
+}
+
+.link:hover {
+  color: #fff;
 }
 
 .input,

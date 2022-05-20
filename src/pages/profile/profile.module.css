@@ -5,8 +5,3 @@
   margin-top: 120px;
   width: 480px;
 }
-
-.input,
-.input div:not(input + div) {
-  width: 100%;
-}

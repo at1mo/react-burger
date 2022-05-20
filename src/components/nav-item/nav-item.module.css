@@ -5,23 +5,16 @@
   transition: var(--common-transition);
   flex-basis: max-content;
 
-  fill-opacity: .4; /* прозрачность заливки */
+  fill-opacity: 0.4; /* прозрачность заливки */
   stroke: var(--text-inactive-color); /* цвет обводки */
   stroke-width: 1px; /* толщина обводки */
-  stroke-opacity: .8; /* прозрачность обводки */
+  stroke-opacity: 0.8; /* прозрачность обводки */
 
   cursor: pointer;
 }
 
-.nav__item:hover {
-  fill-opacity: 1;
-  stroke-opacity: 0;
-
-  color: var(--text-primary-color);
-}
-
 .nav__item:nth-of-type(2) {
-  flex: auto
+  flex: auto;
 }
 
 .nav__item:nth-of-type(3) {
@@ -35,8 +28,29 @@
   transform: translate(-49%, -50%);
 }
 
+.nav__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-inactive-color);
+  transition: var(--common-transition);
+}
+
+.nav__link:not(.logo):hover {
+  fill-opacity: 1;
+  stroke-opacity: 0;
+
+  color: var(--text-primary-color);
+}
+
 .nav__text {
   margin: 0;
+}
+
+.logo {
+  stroke: #fff;
+  fill-opacity: 1;
+  stroke-opacity: 1;
 }
 
 .active {

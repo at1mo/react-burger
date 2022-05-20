@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Input,
@@ -33,9 +34,9 @@ export const ForgotPasswordPage = () => {
       </div>
       <p className={`${styleForgotPassword.text} m-0 pb-4`}>
         Вспомнили пароль?{" "}
-        <a className={styleForgotPassword.link} href="#">
+        <Link className={styleForgotPassword.link} to="/login">
           Войти
-        </a>
+        </Link>
       </p>
     </form>
   );

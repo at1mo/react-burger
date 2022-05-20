@@ -1,6 +1,7 @@
 import React from "react";
 
 import stylePersonalCabiner from "./personal-cabinet.module.css";
+
 import Profile from "../profile/profile";
 import PersonalMenu from "../personal-menu/personal-menu";
 

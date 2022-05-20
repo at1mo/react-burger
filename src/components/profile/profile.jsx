@@ -7,15 +7,17 @@ import styleProfile from "./profile.module.css";
 const Profile = () => {
   return (
     <div className={`${styleProfile.container}`}>
-      <Input
-        type={"text"}
-        placeholder={"Имя"}
-        onChange={(e) => e.target.value}
-        value={"Name"}
-        name={"name-user"}
-        icon={"EditIcon"}
-      />
-      <div className="pt-6">
+      <div className={`${styleProfile.input}`}>
+        <Input
+          type={"text"}
+          placeholder={"Имя"}
+          onChange={(e) => e.target.value}
+          value={"Name"}
+          name={"name-user"}
+          icon={"EditIcon"}
+        />
+      </div>
+      <div className={`${styleProfile.input} pt-6`}>
         <Input
           type={"email"}
           placeholder={"Логин"}
@@ -25,7 +27,7 @@ const Profile = () => {
           icon={"EditIcon"}
         />
       </div>
-      <div className="pt-6">
+      <div className={`${styleProfile.input} pt-6`}>
         <Input
           type={"password"}
           placeholder={"Пароль"}

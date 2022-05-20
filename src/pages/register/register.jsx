@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Input,
@@ -70,9 +71,9 @@ export const RegisterPage = () => {
       </div>
       <p className={`${styleRegister.text} m-0 pb-4`}>
         Уже зарегистрированы?{" "}
-        <a className={styleRegister.link} href="#">
+        <Link className={styleRegister.link} to="/login">
           Войти
-        </a>
+        </Link>
       </p>
     </form>
   );

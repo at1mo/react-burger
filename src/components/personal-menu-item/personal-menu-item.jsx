@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
+
 import PropTypes from "prop-types";
 
 import stylePersonalMenuItem from "./personal-menu-item.module.css";
 
-const PersonalMenuItem = ({ children, active, onClick }) => {
+const PersonalMenuItem = ({ children, to }) => {
+  const [activeLink, setActiveLink] = useState(false);
+  const { url } = useRouteMatch();
+
+  useEffect(() => {
+    setActiveLink(activeLink);
+    console.log(url);
+  }, [url]);
+
   return (
-    <li
-      className={`${stylePersonalMenuItem.item}
-        ${active && stylePersonalMenuItem.item_active}
-        text text_type_main-medium pt-4 pb-4`}
-      onClick={onClick}
-    >
-      {children}
+    <li className="text text_type_main-medium pt-4 pb-4">
+      <Link
+        to={`${url}${to}`}
+        className={`${stylePersonalMenuItem.item}
+        ${activeLink && stylePersonalMenuItem.item_active}
+        `}
+      >
+        {children}
+      </Link>
     </li>
   );
 };
 
 PersonalMenuItem.propTypes = {
-  children: PropTypes.element.isRequired,
-  active: PropTypes.bool,
-  onClick: PropTypes.func,
+  children: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 };
-
-PersonalMenuItem.defaultProps = { active: false };
 
 export default PersonalMenuItem;

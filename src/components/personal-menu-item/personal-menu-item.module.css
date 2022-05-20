@@ -1,6 +1,6 @@
 .item {
   cursor: pointer;
-  list-style: none;
+  text-decoration: none;
   color: var(--text-inactive-color);
   transition: var(--common-transition);
 }

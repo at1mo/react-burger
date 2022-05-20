@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import {
   BurgerIcon,
@@ -12,20 +12,19 @@ import NavItem from "../nav-item/nav-item";
 import styleNav from "./nav.module.css";
 
 const Nav = () => {
-  const [current, setCurrent] = useState('Конструктор')
   return (
     <nav className={styleNav.container}>
       <ul className={`${styleNav.nav__list} pt-4 pb-4`}>
-        <NavItem name={"Конструктор"} active={current === "Конструктор"} onClick={() => setCurrent('Конструктор')}>
+        <NavItem name={"Конструктор"} to="/">
           <BurgerIcon />
         </NavItem>
-        <NavItem name={"Лента заказов"} active={current === "Лента заказов"} onClick={() => setCurrent('Лента заказов')}>
+        <NavItem name={"Лента заказов"} to="/feed">
           <ListIcon />
         </NavItem>
-        <NavItem>
+        <NavItem to="/">
           <Logo />
         </NavItem>
-        <NavItem name={"Личный кабинет"} active={current === "Личный кабинет"} onClick={() => setCurrent('Личный кабинет')}>
+        <NavItem name={"Личный кабинет"} to="/profile">
           <ProfileIcon />
         </NavItem>
       </ul>
