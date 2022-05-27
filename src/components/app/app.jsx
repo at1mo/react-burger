@@ -10,6 +10,7 @@ import {
   ForgotPasswordPage,
   NotFound404,
   ProfilePage,
+  ResetPasswordPage,
 } from "../../pages";
 
 import styleApp from "./app.module.css";
@@ -31,11 +32,14 @@ const App = () => {
         <Route path="/login" exact>
           <LoginPage />
         </Route>
-        <Route path="/registr" exact>
+        <Route path="/register" exact>
           <RegisterPage />
         </Route>
         <Route path="/forgot-password" exact>
           <ForgotPasswordPage />
+        </Route>
+        <Route path="/reset-password" exact>
+          <ResetPasswordPage />
         </Route>
         <Route>
           <NotFound404 />
@@ -46,3 +50,8 @@ const App = () => {
 };
 
 export default App;
+
+/**
+ * TODO:
+ * 1. Вынести стили страниц в отдельный файл
+ */

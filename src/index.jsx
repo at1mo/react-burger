@@ -9,16 +9,11 @@ import thunk from "redux-thunk";
 
 import "./index.css";
 
-// Настраиваем расширение Redux DevTools
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
-
-// Расширитель хранилища (applyMiddleware) принимает в качестве аргумента усилитель
 const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-// Инициализируем хранилище, использовав расширитель
 const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(

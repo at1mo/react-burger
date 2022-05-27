@@ -22,3 +22,13 @@ export const getNumberOrder = (listId) => {
     }),
   }).then(checkResponse);
 };
+
+export const forgotPasswordRequest = (email) => {
+  return fetch(`${config.baseUrl}/password-reset`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      email: email,
+    }),
+  }).then(checkResponse);
+};

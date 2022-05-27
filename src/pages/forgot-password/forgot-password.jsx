@@ -1,5 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { forgotPassword } from "../../services/actions/auth";
+import Spinners from "../../components/spinners/spinners";
 
 import {
   Input,
@@ -9,11 +13,23 @@ import {
 import styleForgotPassword from "./forgot-password.module.css";
 
 export const ForgotPasswordPage = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const emailRef = useRef(null);
 
+  const forgotSubmit = (e) => {
+    e.preventDefault();
+    dispatch(forgotPassword(email));
+    history.push("/reset-password");
+  };
+
   return (
-    <form className={`${styleForgotPassword.container}`}>
+    <form
+      className={`${styleForgotPassword.container}`}
+      onSubmit={forgotSubmit}
+    >
       <h2 className={`m-0`}>Восстановление пароля</h2>
       <div className={`${styleForgotPassword.input} pt-6`}>
         <Input
@@ -28,7 +44,7 @@ export const ForgotPasswordPage = () => {
         />
       </div>
       <div className="pt-6 pb-20">
-        <Button type="primary" size="medium" disabled={""}>
+        <Button type="primary" size="medium">
           Восстановить
         </Button>
       </div>

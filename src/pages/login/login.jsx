@@ -56,7 +56,7 @@ export const LoginPage = () => {
       </div>
       <p className={`${styleLogin.text} m-0 pb-4`}>
         Вы — новый пользователь?{" "}
-        <Link className={styleLogin.link} to="/registr">
+        <Link className={styleLogin.link} to="/register">
           Зарегистрироваться
         </Link>
       </p>

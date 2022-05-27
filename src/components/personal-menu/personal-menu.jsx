@@ -6,8 +6,8 @@ import stylePersonalMenu from "./personal-menu.module.css";
 const PersonalMenu = () => {
   return (
     <ul className={`${stylePersonalMenu.container}`}>
-      <PersonalMenuItem to="profile">Профиль</PersonalMenuItem>
-      <PersonalMenuItem to="orders">История заказов</PersonalMenuItem>
+      <PersonalMenuItem to="#">Профиль</PersonalMenuItem>
+      <PersonalMenuItem to="/orders">История заказов</PersonalMenuItem>
       <PersonalMenuItem to="">Выход</PersonalMenuItem>
       <p
         className={`${stylePersonalMenu.description} text text_type_main-default pt-20`}
