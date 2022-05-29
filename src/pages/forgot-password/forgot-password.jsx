@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,16 +14,24 @@ import styleForgotPassword from "./forgot-password.module.css";
 
 export const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
+  const { forgotPasswordRequest, forgotPasswordFailed } = useSelector(
+    (store) => store.auth
+  );
   const history = useHistory();
 
   const [email, setEmail] = useState("");
-  const emailRef = useRef(null);
+
+  const redirect = () => {
+    history.push("/reset-password");
+  };
 
   const forgotSubmit = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(email));
-    history.push("/reset-password");
+    dispatch(forgotPassword(email, redirect));
   };
+
+  if (forgotPasswordRequest) return <Spinners />;
+  if (forgotPasswordFailed) return <>Произошла ошибка</>;
 
   return (
     <form
@@ -39,12 +47,11 @@ export const ForgotPasswordPage = () => {
           value={email}
           name={"email"}
           error={false}
-          ref={emailRef}
           errorText={"Ошибка"}
         />
       </div>
       <div className="pt-6 pb-20">
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType="submit">
           Восстановить
         </Button>
       </div>

@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { resetPassword } from "../../services/actions/auth";
+import Spinners from "../../components/spinners/spinners";
 
 import {
   Input,
@@ -9,10 +12,13 @@ import {
 import styleResetPassword from "./reset-password.module.css";
 
 export const ResetPasswordPage = () => {
-  const [code, setCode] = useState("");
-  const codeRef = useRef(null);
+  const dispatch = useDispatch();
+  const { resetPasswordRequest } = useSelector(
+    (store) => store.auth
+  );
+  const history = useHistory();
 
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({ password: "", code: "" });
   const passwordRef = useRef(null);
 
   const onIconClick = () => {
@@ -21,16 +27,30 @@ export const ResetPasswordPage = () => {
       passwordRef.current.type === "password" ? "text" : "password";
   };
 
+  const redirect = () => {
+    history.push("/");
+  };
+
+  const resetPasswordSubmit = (e) => {
+    e.preventDefault();
+    dispatch(resetPassword(form, redirect));
+  };
+
+  if (resetPasswordRequest) return <Spinners />;
+
   return (
-    <form className={`${styleResetPassword.container}`}>
+    <form
+      className={`${styleResetPassword.container}`}
+      onSubmit={resetPasswordSubmit}
+    >
       <h2 className={`m-0`}>Восстановление пароля</h2>
       <div className={`${styleResetPassword.input} pt-6`}>
         <Input
           type={"password"}
           placeholder={"Введите новый пароль"}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
           icon={"ShowIcon"}
-          value={password}
+          value={form.password}
           name={"password"}
           error={false}
           ref={passwordRef}
@@ -42,16 +62,15 @@ export const ResetPasswordPage = () => {
         <Input
           type={"text"}
           placeholder={"Введите код из письма"}
-          onChange={(e) => setCode(e.target.value)}
-          value={code}
+          onChange={(e) => setForm({ ...form, code: e.target.value })}
+          value={form.code}
           name={"name"}
           error={false}
-          ref={codeRef}
           errorText={"Ошибка"}
         />
       </div>
       <div className="pt-6 pb-20">
-        <Button type="primary" size="medium" disabled={""}>
+        <Button type="primary" size="medium" htmlType="submit">
           Сохранить
         </Button>
       </div>

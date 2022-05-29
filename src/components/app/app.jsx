@@ -13,8 +13,6 @@ import {
   ResetPasswordPage,
 } from "../../pages";
 
-import styleApp from "./app.module.css";
-
 const App = () => {
   return (
     <Router>

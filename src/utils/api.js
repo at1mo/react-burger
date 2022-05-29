@@ -32,3 +32,14 @@ export const forgotPasswordRequest = (email) => {
     }),
   }).then(checkResponse);
 };
+
+export const resetPasswordRequest = ({ password, code }) => {
+  return fetch(`${config.baseUrl}/password-reset/reset`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      password: password,
+      token: code,
+    }),
+  }).then(checkResponse);
+};

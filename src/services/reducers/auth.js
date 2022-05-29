@@ -2,11 +2,17 @@ import {
   FORGOT_PASSWORD_FAILED,
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
 } from "../actions/auth";
 
 const initialState = {
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
+
+  resetPasswordRequest: false,
+  resetPasswordFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -31,6 +37,27 @@ export const authReducer = (state = initialState, action) => {
         forgotPasswordFailed: true,
       };
     }
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordRequest: true,
+      };
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordFailed: false,
+      };
+    }
+    case RESET_PASSWORD_FAILED: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordFailed: true,
+      };
+    }
+
     default: {
       return state;
     }
