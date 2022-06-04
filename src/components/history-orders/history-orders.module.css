@@ -1,0 +1,39 @@
+.container {
+  width: max-content;
+  max-height: calc(100vh - 132px);
+  overflow-y: auto;
+}
+
+.item {
+  width: 844px;
+  border-radius: 40px;
+  margin-top: 24px;
+  background-color: var(--background);
+}
+
+.item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item__footer {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item_images {
+  position: relative;
+}
+
+.item__image {
+  border-radius: 100px;
+  position: relative;
+}
+
+.item__sum {
+  display: flex;
+  align-items: center;
+}

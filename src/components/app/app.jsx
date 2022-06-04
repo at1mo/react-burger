@@ -12,6 +12,7 @@ import {
   ProfilePage,
   ResetPasswordPage,
 } from "../../pages";
+import HistoryOrder from "../history-order/history-order";
 
 const App = () => {
   return (
@@ -24,7 +25,10 @@ const App = () => {
         <Route path="/feed" exact>
           <FeedPage />
         </Route>
-        <Route path="/profile" exact>
+        <Route path="/profile/orders/:id">
+          <HistoryOrder />
+        </Route>
+        <Route path="/profile">
           <ProfilePage />
         </Route>
         <Route path="/login" exact>

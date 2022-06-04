@@ -12,3 +12,7 @@
 .item_active {
   color: var(--text-active-color);
 }
+
+.padding {
+  padding-top: 17.2px;
+}

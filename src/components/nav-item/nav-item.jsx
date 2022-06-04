@@ -45,6 +45,4 @@ NavItem.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
-NavItem.defaultProps = { active: false };
-
-export default React.memo(NavItem);
+export default NavItem;
