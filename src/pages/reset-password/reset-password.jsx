@@ -13,9 +13,7 @@ import styleResetPassword from "./reset-password.module.css";
 
 export const ResetPasswordPage = () => {
   const dispatch = useDispatch();
-  const { resetPasswordRequest } = useSelector(
-    (store) => store.auth
-  );
+  const { resetPasswordRequest } = useSelector((store) => store.auth);
   const history = useHistory();
 
   const [form, setForm] = useState({ password: "", code: "" });

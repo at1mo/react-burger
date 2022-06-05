@@ -1,12 +1,15 @@
 import React from "react";
 
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Input,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styleProfile from "./profile.module.css";
 
 const Profile = () => {
   return (
-    <div className={`${styleProfile.container}`}>
+    <form className={`${styleProfile.container}`}>
       <div className={`${styleProfile.input}`}>
         <Input
           type={"text"}
@@ -37,7 +40,15 @@ const Profile = () => {
           icon={"EditIcon"}
         />
       </div>
-    </div>
+      <div className={`${styleProfile.group__buttons} pt-6`}>
+        <Button className="p-2" type="secondary" size="medium" htmlType="reset">
+          Отмена
+        </Button>
+        <Button type="primary" size="medium" htmlType="submit">
+          Сохранить
+        </Button>
+      </div>
+    </form>
   );
 };
 

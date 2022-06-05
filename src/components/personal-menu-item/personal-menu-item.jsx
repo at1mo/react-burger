@@ -5,7 +5,11 @@ import PropTypes from "prop-types";
 
 import stylePersonalMenuItem from "./personal-menu-item.module.css";
 
-const PersonalMenuItem = ({ children, to="" }) => {
+const PersonalMenuItem = ({
+  children,
+  to = "",
+  handleClick,
+}) => {
   const [activeLink, setActiveLink] = useState(false);
 
   const { pathname } = useLocation();
@@ -19,14 +23,20 @@ const PersonalMenuItem = ({ children, to="" }) => {
     <li
       className={`${stylePersonalMenuItem.padding} text text_type_main-medium pb-4`}
     >
-      <Link
-        to={`${url}${to}`}
-        className={`${stylePersonalMenuItem.item}
-        ${activeLink && stylePersonalMenuItem.item_active}
-        `}
-      >
-        {children}
-      </Link>
+      {(!handleClick && (
+        <Link
+          to={`${url}${to}`}
+          className={`${stylePersonalMenuItem.item}
+              ${activeLink && stylePersonalMenuItem.item_active}
+              `}
+        >
+          {children}
+        </Link>
+      )) || (
+        <span className={stylePersonalMenuItem.item} onClick={handleClick}>
+          {children}
+        </span>
+      )}
     </li>
   );
 };
@@ -34,8 +44,9 @@ const PersonalMenuItem = ({ children, to="" }) => {
 PersonalMenuItem.propTypes = {
   children: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
+  handleClick: PropTypes.func,
 };
 
-PersonalMenuItem.defaultProps = { to: "" };
+PersonalMenuItem.defaultProps = { to: ""};
 
 export default PersonalMenuItem;

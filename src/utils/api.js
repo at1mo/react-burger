@@ -43,3 +43,46 @@ export const resetPasswordRequest = ({ password, code }) => {
     }),
   }).then(checkResponse);
 };
+
+export const loginRequest = ({ email, password }) => {
+  return fetch(`${config.baseUrl}/auth/login`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  }).then(checkResponse);
+};
+
+export const registerRequest = ({ email, password, name }) => {
+  return fetch(`${config.baseUrl}/auth/register`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      name: name,
+    }),
+  }).then(checkResponse);
+};
+
+export const logoutRequest = () => {
+  return fetch(`${config.baseUrl}/auth/logout`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      token: localStorage.refreshToken,
+    }),
+  }).then(checkResponse);
+};
+
+export const tokenRequest = () => {
+  return fetch(`${config.baseUrl}/auth/token`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      token: localStorage.refreshToken,
+    }),
+  }).then(checkResponse);
+};

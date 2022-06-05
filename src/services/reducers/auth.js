@@ -5,6 +5,18 @@ import {
   RESET_PASSWORD_FAILED,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
+  LOGIN_FAILED,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  REGISTER_FAILED,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  LOGOUT_FAILED,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  TOKEN_FAILED,
+  TOKEN_REQUEST,
+  TOKEN_SUCCESS,
 } from "../actions/auth";
 
 const initialState = {
@@ -13,6 +25,18 @@ const initialState = {
 
   resetPasswordRequest: false,
   resetPasswordFailed: false,
+
+  loginRequest: false,
+  loginFailed: false,
+
+  registerRequest: false,
+  registerFailed: false,
+
+  logoutRequest: false,
+  logoutFailed: false,
+
+  tokenRequest: false,
+  tokenFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -55,6 +79,90 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         resetPasswordRequest: false,
         resetPasswordFailed: true,
+      };
+    }
+    case LOGIN_REQUEST: {
+      return {
+        ...state,
+        loginRequest: true,
+      };
+    }
+    case LOGIN_SUCCESS: {
+      return {
+        ...state,
+        loginRequest: false,
+        loginFailed: false,
+        name: action.user.name,
+        email: action.user.email,
+      };
+    }
+    case LOGIN_FAILED: {
+      return {
+        ...state,
+        loginRequest: false,
+        loginFailed: true,
+      };
+    }
+    case REGISTER_REQUEST: {
+      return {
+        ...state,
+        regiterRequest: true,
+      };
+    }
+    case REGISTER_SUCCESS: {
+      return {
+        ...state,
+        regiterRequest: false,
+        regiterFailed: false,
+        name: action.user.name,
+        email: action.user.email,
+      };
+    }
+    case REGISTER_FAILED: {
+      return {
+        ...state,
+        registerRequest: false,
+        registerFailed: true,
+      };
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutRequest: true,
+      };
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...initialState,
+        logoutRequest: false,
+        logoutFailed: false,
+      };
+    }
+    case LOGOUT_FAILED: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutFailed: true,
+      };
+    }
+    case TOKEN_REQUEST: {
+      return {
+        ...state,
+        tokenRequest: true,
+      };
+    }
+    case TOKEN_SUCCESS: {
+      return {
+        ...initialState,
+        tokenRequest: false,
+        tokenFailed: false,
+      };
+    }
+    case TOKEN_FAILED: {
+      return {
+        ...state,
+        tokenRequest: false,
+        tokenFailed: true,
       };
     }
 
