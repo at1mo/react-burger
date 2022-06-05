@@ -165,7 +165,7 @@ export const authReducer = (state = initialState, action) => {
     }
     case TOKEN_SUCCESS: {
       return {
-        ...initialState,
+        ...state,
         tokenRequest: false,
         tokenFailed: false,
       };

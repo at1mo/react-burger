@@ -25,6 +25,12 @@ export const ResetPasswordPage = () => {
       passwordRef.current.type === "password" ? "text" : "password";
   };
 
+  if (
+    typeof history.location.state == "undefined" ||
+    !history.location.state.reset
+  )
+    history.push("/forgot-password");
+
   const redirect = () => {
     history.push("/");
   };
@@ -35,6 +41,7 @@ export const ResetPasswordPage = () => {
   };
 
   if (resetPasswordRequest) return <Spinners />;
+  if (localStorage.refreshToken) redirect();
 
   return (
     <form

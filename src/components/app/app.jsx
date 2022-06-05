@@ -1,5 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import {
@@ -13,41 +17,45 @@ import {
   ResetPasswordPage,
 } from "../../pages";
 import HistoryOrder from "../history-order/history-order";
+import { ProtectedRoute } from "../protected-route";
 
 const App = () => {
+  const location = useLocation();
+  const locationBackground = location.state && location.state.background;
+
   return (
-    <Router>
+    <>
       <AppHeader />
-      <Switch>
-        <Route path="/" exact>
+      <Switch location={locationBackground || location} >
+        <Route path="/" exact={true}>
           <HomePage />
         </Route>
         <Route path="/feed" exact>
           <FeedPage />
         </Route>
-        <Route path="/profile/orders/:id">
+        <ProtectedRoute path="/profile/orders/:id">
           <HistoryOrder />
-        </Route>
-        <Route path="/profile">
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile" exact={false}>
           <ProfilePage />
-        </Route>
-        <Route path="/login" exact>
+        </ProtectedRoute>
+        <Route path="/login" exact={true}>
           <LoginPage />
         </Route>
-        <Route path="/register" exact>
+        <Route path="/register" exact={true}>
           <RegisterPage />
         </Route>
-        <Route path="/forgot-password" exact>
+        <Route path="/forgot-password" exact={true}>
           <ForgotPasswordPage />
         </Route>
-        <Route path="/reset-password" exact>
+        <Route path="/reset-password" exact={true}>
           <ResetPasswordPage />
         </Route>
         <Route>
           <NotFound404 />
         </Route>
       </Switch>
-    </Router>
+    </>
   );
 };
 

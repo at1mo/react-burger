@@ -16,7 +16,7 @@ export const LoginPage = () => {
   const { loginRequest } = useSelector((state) => state.auth);
 
   const [form, setForm] = useState({ email: "", password: "" });
-  const passwordRef = React.useRef(null);
+  const passwordRef = useRef(null);
 
   const onIconClick = () => {
     passwordRef.current.focus();
@@ -27,8 +27,6 @@ export const LoginPage = () => {
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(form));
-    form.email = "";
-    form.password = "";
   };
 
   if (loginRequest) return <Spinners />;
@@ -66,11 +64,7 @@ export const LoginPage = () => {
             />
           </div>
           <div className="pt-6 pb-20">
-            <Button
-              type="primary"
-              size="medium"
-              htmlType={"submit"}
-            >
+            <Button type="primary" size="medium" htmlType={"submit"}>
               Войти
             </Button>
           </div>

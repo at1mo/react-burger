@@ -8,14 +8,14 @@ const checkResponse = (response) => {
   return Promise.reject(`Ошибка: ${response.status}`);
 };
 
-export const getDataBurgersFromServer = () => {
-  return fetch(`${config.baseUrl}/ingredients`, {
+export const getDataBurgersFromServer = async () => {
+  return await fetch(`${config.baseUrl}/ingredients`, {
     headers: config.headers,
   }).then(checkResponse);
 };
 
-export const getNumberOrder = (listId) => {
-  return fetch(`${config.baseUrl}/orders`, {
+export const getNumberOrder = async (listId) => {
+  return await fetch(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -24,8 +24,8 @@ export const getNumberOrder = (listId) => {
   }).then(checkResponse);
 };
 
-export const forgotPasswordRequest = (email) => {
-  return fetch(`${config.baseUrl}/password-reset`, {
+export const forgotPasswordRequest = async (email) => {
+  return await fetch(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -34,8 +34,8 @@ export const forgotPasswordRequest = (email) => {
   }).then(checkResponse);
 };
 
-export const resetPasswordRequest = ({ password, code }) => {
-  return fetch(`${config.baseUrl}/password-reset/reset`, {
+export const resetPasswordRequest = async ({ password, code }) => {
+  return await fetch(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -45,8 +45,8 @@ export const resetPasswordRequest = ({ password, code }) => {
   }).then(checkResponse);
 };
 
-export const loginRequest = ({ email, password }) => {
-  return fetch(`${config.baseUrl}/auth/login`, {
+export const loginRequest = async ({ email, password }) => {
+  return await fetch(`${config.baseUrl}/auth/login`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -56,8 +56,8 @@ export const loginRequest = ({ email, password }) => {
   }).then(checkResponse);
 };
 
-export const registerRequest = ({ email, password, name }) => {
-  return fetch(`${config.baseUrl}/auth/register`, {
+export const registerRequest = async ({ email, password, name }) => {
+  return await fetch(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -68,8 +68,8 @@ export const registerRequest = ({ email, password, name }) => {
   }).then(checkResponse);
 };
 
-export const logoutRequest = () => {
-  return fetch(`${config.baseUrl}/auth/logout`, {
+export const logoutRequest = async () => {
+  return await fetch(`${config.baseUrl}/auth/logout`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -78,8 +78,8 @@ export const logoutRequest = () => {
   }).then(checkResponse);
 };
 
-export const tokenRequest = () => {
-  return fetch(`${config.baseUrl}/auth/token`, {
+export const tokenRequest = async () => {
+  return await fetch(`${config.baseUrl}/auth/token`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -88,17 +88,23 @@ export const tokenRequest = () => {
   }).then(checkResponse);
 };
 
-export const getDataUserRequest = () => {
-  return fetch(`${config.baseUrl}/auth/user`, {
+export const getDataUserRequest = async () => {
+  return await fetch(`${config.baseUrl}/auth/user`, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getCookie("token")}`,
     },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
   }).then(checkResponse);
 };
 
-export const updateDataUserRequest = ({ name, email, password }) => {
-  return fetch(`${config.baseUrl}/auth/user`, {
+export const updateDataUserRequest = async ({ name, email, password }) => {
+  return await fetch(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     mode: "cors",
     cache: "no-cache",

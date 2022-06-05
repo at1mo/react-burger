@@ -17,7 +17,7 @@ export const RegisterPage = () => {
   const history = useHistory();
 
   const [form, setForm] = useState({ email: "", password: "", name: "" });
-  const passwordRef = React.useRef(null);
+  const passwordRef = useRef(null);
 
   const onIconClick = () => {
     passwordRef.current.focus();
@@ -31,19 +31,20 @@ export const RegisterPage = () => {
 
   const registerSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(form, redirect))
-  }
+    dispatch(register(form, redirect));
+  };
 
   if (registerRequest) return <Spinners />;
+  if (localStorage.refreshToken) redirect();
 
   return (
-    <form className={`${styleRegister.container}` } onSubmit={registerSubmit}>
+    <form className={`${styleRegister.container}`} onSubmit={registerSubmit}>
       <h2 className={`m-0`}>Регистрация</h2>
       <div className={`${styleRegister.input} pt-6`}>
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={(e) => setForm({ ...form, name: e.target.value})}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
           value={form.name}
           name={"name"}
           error={false}
@@ -54,7 +55,7 @@ export const RegisterPage = () => {
         <Input
           type={"email"}
           placeholder={"E-mail"}
-          onChange={(e) => setForm({ ...form, email: e.target.value})}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
           value={form.email}
           name={"email"}
           error={false}
@@ -65,7 +66,7 @@ export const RegisterPage = () => {
         <Input
           type={"password"}
           placeholder={"Пароль"}
-          onChange={(e) => setForm({ ...form, password: e.target.value})}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
           icon={"ShowIcon"}
           value={form.password}
           name={"password"}

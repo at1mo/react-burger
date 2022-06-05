@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
+import { Route, useRouteMatch } from "react-router-dom";
 import HistoryOrders from "../../components/history-orders/history-orders";
 import PersonalMenu from "../../components/personal-menu/personal-menu";
 import Profile from "../../components/profile/profile";
@@ -13,7 +13,7 @@ export const ProfilePage = () => {
     <div className={`${styleProfile.container}`}>
       <PersonalMenu />
 
-      <Route path={`${path}`} exact>
+      <Route path={`${path}`} exact={true}>
         <Profile />
       </Route>
       <Route path={`${path}/orders`} exact>

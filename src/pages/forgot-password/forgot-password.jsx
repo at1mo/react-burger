@@ -14,26 +14,24 @@ import styleForgotPassword from "./forgot-password.module.css";
 
 export const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
-  const { forgotPasswordRequest, forgotPasswordFailed } = useSelector(
-    (store) => store.auth
-  );
+  const { forgotPasswordRequest } = useSelector((store) => store.auth);
   const history = useHistory();
 
   const [email, setEmail] = useState("");
 
   const redirect = () => {
-    history.push("/reset-password");
+    history.push("/reset-password", { reset: true });
   };
 
   const forgotSubmit = (e) => {
     e.preventDefault();
-    if(email !== '') {
+    if (email !== "") {
       dispatch(forgotPassword(email, redirect));
     }
   };
 
   if (forgotPasswordRequest) return <Spinners />;
-  if (forgotPasswordFailed) return <>Произошла ошибка</>;
+  if (localStorage.refreshToken) history.push("/");
 
   return (
     <form
