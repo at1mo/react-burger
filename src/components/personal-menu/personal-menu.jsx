@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import PersonalMenuItem from "../personal-menu-item/personal-menu-item";
 import { logout } from "../../services/actions/auth";
 

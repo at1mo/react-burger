@@ -27,7 +27,9 @@ export const ForgotPasswordPage = () => {
 
   const forgotSubmit = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(email, redirect));
+    if(email !== '') {
+      dispatch(forgotPassword(email, redirect));
+    }
   };
 
   if (forgotPasswordRequest) return <Spinners />;

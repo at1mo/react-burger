@@ -5,6 +5,8 @@ import {
   logoutRequest,
   tokenRequest,
   resetPasswordRequest,
+  getDataUserRequest,
+  updateDataUserRequest,
 } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 
@@ -31,6 +33,14 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const TOKEN_REQUEST = "TOKEN_REQUEST";
 export const TOKEN_FAILED = "TOKEN_FAILED";
 export const TOKEN_SUCCESS = "TOKEN_SUCCESS";
+
+export const USER_REQUEST = "USER_REQUEST";
+export const USER_FAILED = "USER_FAILED";
+export const USER_SUCCESS = "USER_SUCCESS";
+
+export const USER_UPDATE_REQUEST = "USER_UPDATE_REQUEST";
+export const USER_UPDATE_FAILED = "USER_UPDATE_FAILED";
+export const USER_UPDATE_SUCCESS = "USER_UPDATE_SUCCESS";
 
 export function forgotPassword(email, redirect) {
   return function (dispatch) {
@@ -180,7 +190,6 @@ export function getToken() {
     });
     tokenRequest()
       .then((res) => {
-        console.log("token", res);
         if (res && res.success) {
           const accessToken = res.accessToken.split("Bearer ")[1];
           const refreshToken = res.refreshToken;
@@ -197,10 +206,76 @@ export function getToken() {
         }
       })
       .catch((e) => {
-        console.log("token-mes:", e.message);
-        dispatch({
-          type: TOKEN_FAILED,
-        });
+        if (e.message === "Token is invalid") {
+          dispatch(getToken());
+        } else {
+          dispatch({
+            type: TOKEN_FAILED,
+          });
+        }
+      });
+  };
+}
+
+export function getDataUser() {
+  return function (dispatch) {
+    dispatch({
+      type: USER_REQUEST,
+    });
+    getDataUserRequest()
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: USER_SUCCESS,
+            user: res.user,
+          });
+          return res;
+        } else {
+          dispatch({
+            type: USER_FAILED,
+          });
+        }
+      })
+      .catch((e) => {
+        if (e.message === "jwt expired" || e.message === "Token is invalid") {
+          dispatch(getToken());
+          dispatch(getDataUser());
+        } else {
+          dispatch({
+            type: USER_FAILED,
+          });
+        }
+      });
+  };
+}
+
+export function updateDataUser(form) {
+  return function (dispatch) {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+    updateDataUserRequest(form)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: USER_UPDATE_SUCCESS,
+            user: res.user,
+          });
+        } else {
+          dispatch({
+            type: USER_UPDATE_FAILED,
+          });
+        }
+      })
+      .catch((e) => {
+        if (e.message === "jwt expired" || e.message === "Token is invalid") {
+          dispatch(getToken());
+          dispatch(updateDataUser(form));
+        } else {
+          dispatch({
+            type: USER_UPDATE_FAILED,
+          });
+        }
       });
   };
 }

@@ -5,7 +5,7 @@ import styleHistoryOrders from "./history-orders.module.css";
 
 const HistoryOrders = () => {
   const viewHistoryOrder = (item) => {
-    console.log(item);
+    //console.log(item);
   };
 
   return (

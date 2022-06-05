@@ -17,9 +17,18 @@ import {
   TOKEN_FAILED,
   TOKEN_REQUEST,
   TOKEN_SUCCESS,
+  USER_REQUEST,
+  USER_FAILED,
+  USER_SUCCESS,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_FAILED,
+  USER_UPDATE_SUCCESS,
 } from "../actions/auth";
 
 const initialState = {
+  name: "",
+  email: "",
+
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
 
@@ -37,6 +46,9 @@ const initialState = {
 
   tokenRequest: false,
   tokenFailed: false,
+
+  authRequest: false,
+  authFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -163,6 +175,50 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         tokenRequest: false,
         tokenFailed: true,
+      };
+    }
+    case USER_REQUEST: {
+      return {
+        ...state,
+        authRequest: true,
+      };
+    }
+    case USER_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false,
+        name: action.user.name,
+        email: action.user.email,
+      };
+    }
+    case USER_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      };
+    }
+    case USER_UPDATE_REQUEST: {
+      return {
+        ...state,
+        authRequest: true,
+      };
+    }
+    case USER_UPDATE_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false,
+        name: action.user.name,
+        email: action.user.email,
+      };
+    }
+    case USER_UPDATE_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
       };
     }
 

@@ -1,4 +1,5 @@
 import { config } from "./constants";
+import { getCookie } from "./cookie";
 
 const checkResponse = (response) => {
   if (response.ok) {
@@ -83,6 +84,35 @@ export const tokenRequest = () => {
     headers: config.headers,
     body: JSON.stringify({
       token: localStorage.refreshToken,
+    }),
+  }).then(checkResponse);
+};
+
+export const getDataUserRequest = () => {
+  return fetch(`${config.baseUrl}/auth/user`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("token")}`,
+    },
+  }).then(checkResponse);
+};
+
+export const updateDataUserRequest = ({ name, email, password }) => {
+  return fetch(`${config.baseUrl}/auth/user`, {
+    method: "PATCH",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("token")}`,
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      password: password,
     }),
   }).then(checkResponse);
 };
