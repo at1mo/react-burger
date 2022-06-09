@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/auth";
 
@@ -13,7 +13,8 @@ import styleLogin from "./login.module.css";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  const { loginRequest } = useSelector((state) => state.auth);
+  const { loginRequest } = useSelector((store) => store.auth);
+  const location = useLocation();
 
   const [form, setForm] = useState({ email: "", password: "" });
   const passwordRef = useRef(null);
@@ -34,7 +35,11 @@ export const LoginPage = () => {
   return (
     <>
       {localStorage.refreshToken && !loginRequest ? (
-        <Redirect to="/" />
+        location.state ? (
+          <Redirect to={location.state.from.pathname} />
+        ) : (
+          <Redirect to="/" />
+        )
       ) : (
         <form className={`${styleLogin.container}`} onSubmit={loginSubmit}>
           <h2 className={`m-0`}>Вход</h2>

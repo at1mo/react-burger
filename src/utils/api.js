@@ -17,7 +17,10 @@ export const getDataBurgersFromServer = async () => {
 export const getNumberOrder = async (listId) => {
   return await fetch(`${config.baseUrl}/orders`, {
     method: "POST",
-    headers: config.headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("token")}`,
+    },
     body: JSON.stringify({
       ingredients: listId,
     }),

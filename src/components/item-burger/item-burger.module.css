@@ -6,6 +6,11 @@
   position: relative;
 }
 
+.link {
+  text-decoration: none;
+  color: #F2F2F3;
+}
+
 .image {
   padding-left: 16px;
   padding-right: 16px;

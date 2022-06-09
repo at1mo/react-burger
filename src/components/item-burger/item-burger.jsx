@@ -1,8 +1,8 @@
 import React from "react";
 import PropsTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { OPEN_INGREDIENT_DETAILS } from "../../services/actions/details";
 
 import { useDrag } from "react-dnd";
 
@@ -14,19 +14,13 @@ import styleItemBurger from "./item-burger.module.css";
 
 const ItemBurger = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const id = props._id;
 
   const fillings = useSelector((store) => store.burgerConstructor.fillings);
   const bun = useSelector((store) => store.burgerConstructor.bun);
   const burgerIngredients = [...bun, ...bun, ...fillings];
   const count = burgerIngredients.filter((item) => item._id === id).length;
-
-  const openModalIngredient = (ingredient) => {
-    dispatch({
-      type: OPEN_INGREDIENT_DETAILS,
-      payload: ingredient,
-    });
-  };
 
   const [{ isDrag }, drag] = useDrag({
     type: props.type,
@@ -38,28 +32,32 @@ const ItemBurger = (props) => {
 
   return (
     !isDrag && (
-      <div
-        ref={drag}
-        className={styleItemBurger.container}
-        onClick={() => openModalIngredient(props)}
+      <Link
+        to={{ pathname: `/ingredients/${id}`, state: { background: location } }}
+        className={styleItemBurger.link}
       >
         <div
-          className={
-            count > 0
-              ? styleItemBurger.counter_active
-              : styleItemBurger.counter_inactive
-          }
+          ref={drag}
+          className={styleItemBurger.container}
         >
-          <Counter count={count} size="default" />
+          <div
+            className={
+              count > 0
+                ? styleItemBurger.counter_active
+                : styleItemBurger.counter_inactive
+            }
+          >
+            <Counter count={count} size="default" />
+          </div>
+          <img
+            className={styleItemBurger.image}
+            src={props.image}
+            alt={props.name}
+          />
+          <PriceSubtract price={props.price} />
+          <p className={styleItemBurger.text}>{props.name}</p>
         </div>
-        <img
-          className={styleItemBurger.image}
-          src={props.image}
-          alt={props.name}
-        />
-        <PriceSubtract price={props.price} />
-        <p className={styleItemBurger.text}>{props.name}</p>
-      </div>
+      </Link>
     )
   );
 };

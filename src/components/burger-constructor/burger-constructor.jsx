@@ -14,6 +14,7 @@ import {
   getOrder,
   OPEN_ORDER_DETAILS,
 } from "../../services/actions/order";
+import { useHistory } from "react-router-dom";
 
 import { generateUUID } from "../../utils/generateUUID";
 
@@ -24,9 +25,12 @@ import SumCoin from "../sum-coin/sum-coin";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styleBurgerConstructors from "./burger-constructor.module.css";
+import Spinners from "../spinners/spinners";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const hisroty = useHistory();
+
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const bun = useSelector((store) => store.burgerConstructor.bun);
   const fillings = useSelector((store) => store.burgerConstructor.fillings);
@@ -41,7 +45,7 @@ const BurgerConstructor = () => {
   const items = [...bun, ...bun, ...fillings];
 
   const idList = items.map((item) => item._id);
-  const order = useSelector((store) => store.order.order);
+  const { order, orderRequest } = useSelector((store) => store.order);
 
   const [{ bunIsHover }, dropBun] = useDrop({
     accept: "bun",
@@ -91,10 +95,14 @@ const BurgerConstructor = () => {
   }, [bun, fillings]);
 
   const orderDetails = () => {
-    dispatch(getOrder(idList));
-    dispatch({
-      type: OPEN_ORDER_DETAILS,
-    });
+    if (localStorage.refreshToken) {
+      dispatch(getOrder(idList));
+      dispatch({
+        type: OPEN_ORDER_DETAILS,
+      });
+    } else {
+      hisroty.push("/login");
+    }
   };
 
   const closeOrderDetails = () => {
@@ -105,6 +113,8 @@ const BurgerConstructor = () => {
       type: RESET_CONSTRUCTOR,
     });
   };
+
+  if (orderRequest) return <Spinners />;
 
   const borderColor = bunIsHover || fillingsIsHover ? "#4C4CFF" : "transparent"; // придумать класс
   return (
@@ -159,7 +169,7 @@ const BurgerConstructor = () => {
         disabled={sumOrder <= 0}
       />
 
-      { order && (
+      {order && (
         <OrderDetails
           closeModalOrderDetails={closeOrderDetails}
           numOrder={order.number}

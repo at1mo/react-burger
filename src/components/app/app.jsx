@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Switch,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import {
@@ -15,23 +11,35 @@ import {
   NotFound404,
   ProfilePage,
   ResetPasswordPage,
+  IngredientsPage,
 } from "../../pages";
 import HistoryOrder from "../history-order/history-order";
 import { ProtectedRoute } from "../protected-route";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const App = () => {
   const location = useLocation();
   const locationBackground = location.state && location.state.background;
+  const history = useHistory();
+  const modal = window.history.state !== null ? true : false;
+
+  const returnFromModal = () => {
+    history.goBack();
+  };
 
   return (
     <>
       <AppHeader />
-      <Switch location={locationBackground || location} >
+      <Switch location={locationBackground || location}>
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
-        <Route path="/feed" exact>
+        <Route path="/feed" exact={true}>
           <FeedPage />
+        </Route>
+        <Route path="/ingredients/:id" exact={true}>
+          {!modal && <IngredientsPage />}
         </Route>
         <ProtectedRoute path="/profile/orders/:id">
           <HistoryOrder />
@@ -55,6 +63,13 @@ const App = () => {
           <NotFound404 />
         </Route>
       </Switch>
+      {locationBackground && (
+        <Route path="/ingredients/:id" exact={true}>
+          <Modal name="Детали ингредиента" closeModal={returnFromModal}>
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
     </>
   );
 };
@@ -63,5 +78,7 @@ export default App;
 
 /**
  * TODO:
- * 1. Вынести стили страниц в отдельный файл
+ * 1. Вынести стили страниц (pages) в отдельный файл
+ * 2. Довести до ума спиннер
+ * 3. Объеденить общий функционал вывода ошибок и спиннера
  */

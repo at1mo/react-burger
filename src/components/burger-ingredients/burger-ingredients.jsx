@@ -1,25 +1,14 @@
 import React, { useRef, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Tabs from "../tabs/tabs";
 import ItemBurger from "../item-burger/item-burger";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { CLOSE_INGREDIENT_DETAILS } from "../../services/actions/details";
 
 import styleBurgerIngredients from "./burger-ingredients.module.css";
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
-
   const dataIngredients = useSelector((store) => store.ingredients.ingredients);
-  const { isOpen, ingredient } = useSelector((state) => state.details);
-
-  const closeModalIngredient = () => {
-    dispatch({
-      type: CLOSE_INGREDIENT_DETAILS,
-    });
-  };
 
   const [currentTab, setTab] = useState("bun");
 
@@ -100,13 +89,6 @@ const BurgerIngredients = () => {
           <ItemBurger key={item._id} {...item} />
         ))}
       </div>
-
-      {isOpen && (
-        <IngredientDetails
-          modalIngredient={ingredient}
-          closeModalIngredient={closeModalIngredient}
-        />
-      )}
     </section>
   );
 };
