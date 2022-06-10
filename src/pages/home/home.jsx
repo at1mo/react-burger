@@ -12,7 +12,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import styleHome from "./home.module.css";
 
 export const HomePage = () => {
-  console.log("render home");
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
     (store) => store.ingredients
   );
