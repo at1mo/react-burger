@@ -2,10 +2,7 @@ import { config } from "./constants";
 import { getCookie } from "./cookie";
 
 const checkResponse = (response) => {
-  if (response.ok) {
-    return response.json();
-  }
-  return Promise.reject(`Ошибка: ${response.status}`);
+  return response.ok ? response.json() : response.json().then((err) => Promise.reject(err))
 };
 
 export const getDataBurgersFromServer = async () => {

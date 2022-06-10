@@ -1,21 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getIngredients } from "../../services/actions/ingredients";
 import ItemDetails from "../../components/item-details/item-details";
-
-import styleIngredients from "./ingredients.module.css";
+import Spinners from "../../components/spinners/spinners";
 import { NotFound404 } from "../not-found/not-found";
 
+import styleIngredients from "./ingredients.module.css";
+
 export const IngredientsPage = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
-  const { ingredients } = useSelector((store) => store.ingredients);
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    (store) => store.ingredients
+  );
 
   const ingredient =
     ingredients.length > 0
@@ -28,6 +25,9 @@ export const IngredientsPage = () => {
           fat: "",
           carbohydrates: "",
         };
+
+  if (ingredientsRequest) return <Spinners />;
+  if (ingredientsFailed) return <>Произошла ошибка, перезагрузитt сайт</>;
   if (!ingredient) {
     <NotFound404 />;
   }

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredients";
 
 import AppHeader from "../app-header/app-header";
 import {
@@ -19,6 +21,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const App = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const locationBackground = location.state && location.state.background;
   const history = useHistory();
@@ -27,6 +30,10 @@ const App = () => {
   const returnFromModal = () => {
     history.goBack();
   };
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <>
