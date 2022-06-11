@@ -1,29 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+
 import PropTypes from "prop-types";
 
 import styleNavItem from "./nav-item.module.css";
 
-const NavItem = ({ children, name, active, onClick }) => {
+const NavItem = ({ children, name, to }) => {
+  const [activeLink, setActiveLink] = useState(false);
+  const { pathname } = useLocation();
+
+  const status = (activeLink) => {
+    if (activeLink && !name) {
+      return styleNavItem.logo;
+    } else if (activeLink === to) {
+      return styleNavItem.active;
+    } else {
+      return "";
+    }
+  };
+
+  useEffect(() => {
+    setActiveLink(pathname);
+  }, [pathname]);
+
   return (
     <li
       className={`${styleNavItem.nav__item}
-      ${active && styleNavItem.active}
       pt-4 pb-4 pl-5 pr-5`}
-      onClick={onClick}
     >
-      {children}
-      <p className={`${styleNavItem.nav__text} pl-2`}>{name}</p>
+      <NavLink
+        className={`${styleNavItem.nav__link} ${status(activeLink)}`}
+        to={to}
+      >
+        {children}
+        <p className={`${styleNavItem.nav__text} pl-2`}>{name}</p>
+      </NavLink>
     </li>
   );
 };
 
 NavItem.propTypes = {
   name: PropTypes.string,
-  active: PropTypes.bool,
   children: PropTypes.element.isRequired,
-  onClick: PropTypes.func,
+  to: PropTypes.string.isRequired,
 };
-
-NavItem.defaultProps = { active: false };
 
 export default NavItem;
