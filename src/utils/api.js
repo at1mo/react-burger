@@ -1,8 +1,10 @@
 import { config } from "./constants";
-import { getCookie } from "./cookie";
+import { getCookie, setCookie } from "./cookie";
 
 const checkResponse = (response) => {
-  return response.ok ? response.json() : response.json().then((err) => Promise.reject(err))
+  return response.ok
+    ? response.json()
+    : response.json().then((err) => Promise.reject(err));
 };
 
 export const getDataBurgersFromServer = async () => {
@@ -12,7 +14,7 @@ export const getDataBurgersFromServer = async () => {
 };
 
 export const getNumberOrder = async (listId) => {
-  return await fetch(`${config.baseUrl}/orders`, {
+  return await fetchWithRefresh(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +23,7 @@ export const getNumberOrder = async (listId) => {
     body: JSON.stringify({
       ingredients: listId,
     }),
-  }).then(checkResponse);
+  });
 };
 
 export const forgotPasswordRequest = async (email) => {
@@ -85,40 +87,61 @@ export const tokenRequest = async () => {
     body: JSON.stringify({
       token: localStorage.refreshToken,
     }),
-  }).then(checkResponse);
+  })
+    .then(checkResponse)
+    .then((refreshData) => {
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      const accessToken = refreshData.accessToken.split("Bearer ")[1];
+      const refreshToken = refreshData.refreshToken;
+      setCookie("token", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      return refreshData;
+    });
 };
 
 export const getDataUserRequest = async () => {
-  return await fetch(`${config.baseUrl}/auth/user`, {
+  return await fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getCookie("token")}`,
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  }).then(checkResponse);
+  });
 };
 
 export const updateDataUserRequest = async ({ name, email, password }) => {
-  return await fetch(`${config.baseUrl}/auth/user`, {
+  return await fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getCookie("token")}`,
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
     body: JSON.stringify({
       name: name,
       email: email,
       password: password,
     }),
-  }).then(checkResponse);
+  });
 };
+
+export async function fetchWithRefresh(url, options) {
+  try {
+    const res = await fetch(url, options);
+    return await checkResponse(res);
+  } catch (err) {
+    if (
+      err.message === "jwt malformed" ||
+      err.message === "jwt expired" ||
+      err.message === "Token is invalid"
+    ) {
+      const refreshData = await tokenRequest();
+      options.headers.Authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkResponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+}

@@ -1,21 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getToken } from "../services/actions/auth";
 
 import PropTypes from "prop-types";
 
 export const ProtectedRoute = ({ children, ...rest }) => {
-  const dispatch = useDispatch();
   const location = useLocation();
 
   const refreshToken = localStorage.refreshToken;
-
-  useEffect(() => {
-    if (refreshToken) {
-      dispatch(getToken());
-    }
-  }, [dispatch, refreshToken]);
 
   return (
     <Route

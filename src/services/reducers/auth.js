@@ -14,9 +14,6 @@ import {
   LOGOUT_FAILED,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  TOKEN_FAILED,
-  TOKEN_REQUEST,
-  TOKEN_SUCCESS,
   USER_REQUEST,
   USER_FAILED,
   USER_SUCCESS,
@@ -43,9 +40,6 @@ const initialState = {
 
   logoutRequest: false,
   logoutFailed: false,
-
-  tokenRequest: false,
-  tokenFailed: false,
 
   authRequest: false,
   authFailed: false,
@@ -155,26 +149,6 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         logoutRequest: false,
         logoutFailed: true,
-      };
-    }
-    case TOKEN_REQUEST: {
-      return {
-        ...state,
-        tokenRequest: true,
-      };
-    }
-    case TOKEN_SUCCESS: {
-      return {
-        ...state,
-        tokenRequest: false,
-        tokenFailed: false,
-      };
-    }
-    case TOKEN_FAILED: {
-      return {
-        ...state,
-        tokenRequest: false,
-        tokenFailed: true,
       };
     }
     case USER_REQUEST: {

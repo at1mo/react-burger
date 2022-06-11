@@ -3,7 +3,6 @@ import {
   loginRequest,
   registerRequest,
   logoutRequest,
-  tokenRequest,
   resetPasswordRequest,
   getDataUserRequest,
   updateDataUserRequest,
@@ -29,10 +28,6 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_FAILED = "LOGOUT_FAILED";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-
-export const TOKEN_REQUEST = "TOKEN_REQUEST";
-export const TOKEN_FAILED = "TOKEN_FAILED";
-export const TOKEN_SUCCESS = "TOKEN_SUCCESS";
 
 export const USER_REQUEST = "USER_REQUEST";
 export const USER_FAILED = "USER_FAILED";
@@ -183,40 +178,6 @@ export function logout(redirect) {
   };
 }
 
-export function getToken() {
-  return function (dispatch) {
-    dispatch({
-      type: TOKEN_REQUEST,
-    });
-    tokenRequest()
-      .then((res) => {
-        if (res && res.success) {
-          const accessToken = res.accessToken.split("Bearer ")[1];
-          const refreshToken = res.refreshToken;
-          setCookie("token", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-          dispatch({
-            type: TOKEN_SUCCESS,
-          });
-        } else {
-          logout();
-          dispatch({
-            type: TOKEN_FAILED,
-          });
-        }
-      })
-      .catch((e) => {
-        if (e.message === "Token is invalid") {
-          dispatch(getToken());
-        } else {
-          dispatch({
-            type: TOKEN_FAILED,
-          });
-        }
-      });
-  };
-}
-
 export function getDataUser() {
   return function (dispatch) {
     dispatch({
@@ -229,7 +190,6 @@ export function getDataUser() {
             type: USER_SUCCESS,
             user: res.user,
           });
-          return res;
         } else {
           dispatch({
             type: USER_FAILED,
@@ -237,14 +197,7 @@ export function getDataUser() {
         }
       })
       .catch((e) => {
-        if (e.message === "jwt expired" || e.message === "Token is invalid") {
-          dispatch(getToken());
-          dispatch(getDataUser());
-        } else {
-          dispatch({
-            type: USER_FAILED,
-          });
-        }
+        console.log(e);
       });
   };
 }
@@ -268,14 +221,7 @@ export function updateDataUser(form) {
         }
       })
       .catch((e) => {
-        if (e.message === "jwt expired" || e.message === "Token is invalid") {
-          dispatch(getToken());
-          dispatch(updateDataUser(form));
-        } else {
-          dispatch({
-            type: USER_UPDATE_FAILED,
-          });
-        }
+        console.log(e);
       });
   };
 }
