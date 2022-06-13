@@ -42,13 +42,16 @@ const App = () => {
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
+        <Route path="/feed/:id" exact={true}>
+          <HistoryOrder />
+        </Route>
         <Route path="/feed" exact={true}>
           <FeedPage />
         </Route>
         <Route path="/ingredients/:id" exact={true}>
           {!modal && <IngredientsPage />}
         </Route>
-        <ProtectedRoute path="/profile/orders/:id">
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
           <HistoryOrder />
         </ProtectedRoute>
         <ProtectedRoute path="/profile" exact={false}>

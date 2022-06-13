@@ -1,0 +1,26 @@
+.container {
+  width: 580px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 36px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.feed {
+  width: 272px;
+}
+
+.feed__list {
+  list-style: none;
+  padding: 0;
+}
+
+.orders__reardy {
+  color: var(--colors-interface-success);
+}
+
+.text_number {
+  text-shadow: 0 0 6px #4c4cff, 0 0 12px #4c4cff;
+}
