@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { historyOrders } from "../../utils/constants";
 
@@ -7,13 +7,20 @@ import styleFeedList from "./feed-list.module.css";
 
 const FeedList = () => {
   const { url } = useRouteMatch();
+  const location = useLocation();
 
   return (
     historyOrders && (
       <ul className={styleFeedList.container}>
         {historyOrders.map((item) => (
           <li key={item.id} className={`${styleFeedList.item} p-6 ml-2 mr-2`}>
-            <Link to={`${url}/${item.id}`} className={styleFeedList.link}>
+            <Link
+              to={{
+                pathname: `${url}/${item.id}`,
+                state: { background: location },
+              }}
+              className={styleFeedList.link}
+            >
               <div className={styleFeedList.item__header}>
                 <p className={`text text_type_digits-default m-0`}>
                   #{item.id}

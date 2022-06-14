@@ -1,18 +1,25 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { historyOrders } from "../../utils/constants";
 import styleHistoryOrders from "./history-orders.module.css";
 
 const HistoryOrders = () => {
   const { url } = useRouteMatch();
+  const location = useLocation();
 
   return (
     historyOrders && (
       <ul className={styleHistoryOrders.container}>
         {historyOrders.map((item) => (
           <li key={item.id} className={`${styleHistoryOrders.item} p-6 mr-2`}>
-            <Link to={`${url}/${item.id}`} className={styleHistoryOrders.link}>
+            <Link
+              to={{
+                pathname: `${url}/${item.id}`,
+                state: { background: location },
+              }}
+              className={styleHistoryOrders.link}
+            >
               <div className={styleHistoryOrders.item__header}>
                 <p className={`text text_type_digits-default m-0`}>
                   #{item.id}

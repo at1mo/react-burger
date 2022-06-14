@@ -43,7 +43,7 @@ const App = () => {
           <HomePage />
         </Route>
         <Route path="/feed/:id" exact={true}>
-          <HistoryOrder />
+          {!modal && <HistoryOrder />}
         </Route>
         <Route path="/feed" exact={true}>
           <FeedPage />
@@ -52,7 +52,7 @@ const App = () => {
           {!modal && <IngredientsPage />}
         </Route>
         <ProtectedRoute path="/profile/orders/:id" exact={true}>
-          <HistoryOrder />
+          {!modal && <HistoryOrder />}
         </ProtectedRoute>
         <ProtectedRoute path="/profile" exact={false}>
           <ProfilePage />
@@ -74,11 +74,23 @@ const App = () => {
         </Route>
       </Switch>
       {locationBackground && (
-        <Route path="/ingredients/:id" exact={true}>
-          <Modal name="Детали ингредиента" closeModal={returnFromModal}>
-            <IngredientDetails />
-          </Modal>
-        </Route>
+        <>
+          <Route path="/ingredients/:id" exact={true}>
+            <Modal name="Детали ингредиента" closeModal={returnFromModal}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
+          <Route path="/feed/:id" exact={true}>
+            <Modal closeModal={returnFromModal}>
+              <HistoryOrder />
+            </Modal>
+          </Route>
+          <Route path="/profile/orders/:id" exact={true}>
+            <Modal closeModal={returnFromModal}>
+              <HistoryOrder />
+            </Modal>
+          </Route>
+        </>
       )}
     </>
   );
