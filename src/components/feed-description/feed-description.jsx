@@ -1,9 +1,21 @@
 import React from "react";
-import { historyOrders } from "../../utils/constants";
+import { useSelector } from "react-redux";
 
 import styleFeedDescription from "./feed-description.module.css";
 
 const FeedDescription = () => {
+  const ordersData = useSelector((store) => store.ws.messages);
+
+  const ordersDone = ordersData
+    ? ordersData.orders?.filter((order) => order.status === "done")
+    : null;
+  const ordersPending = ordersData
+    ? ordersData.orders?.filter((item) => item.status === "pending")
+    : null;
+
+  const total = ordersData ? ordersData.total : 0;
+  const totalToday = ordersData ? ordersData.totalToday : 0;
+
   return (
     <div>
       <div className={`${styleFeedDescription.wrapper} pb-15`}>
@@ -13,11 +25,12 @@ const FeedDescription = () => {
             className={`${styleFeedDescription.feed__list}
             ${styleFeedDescription.orders__reardy} text text_type_digits-default`}
           >
-            {historyOrders.map((item) => (
-              <li key={item.id} className="pb-2">
-                {item.id}
-              </li>
-            ))}
+            {ordersDone &&
+              ordersDone.slice(0, 20).map((order) => (
+                <li key={order._id} className={styleFeedDescription.feed__item}>
+                  {order.number}
+                </li>
+              ))}
           </ul>
         </div>
         <div className={styleFeedDescription.feed}>
@@ -25,9 +38,12 @@ const FeedDescription = () => {
           <ul
             className={`${styleFeedDescription.feed__list} text text_type_digits-default`}
           >
-            <li className="pb-2">034533</li>
-            <li className="pb-2">034533</li>
-            <li className="pb-2">034533</li>
+            {ordersPending &&
+              ordersPending.slice(0, 20).map((order) => (
+                <li key={order._id} className={styleFeedDescription.feed__item}>
+                  {order.number}
+                </li>
+              ))}
           </ul>
         </div>
       </div>
@@ -35,13 +51,13 @@ const FeedDescription = () => {
       <p
         className={`${styleFeedDescription.text_number} text text_type_digits-large m-0 pb-15`}
       >
-        28 752
+        {total}
       </p>
       <h3 className="text text_type_main-medium">Выполнено за сегодня:</h3>
       <p
         className={`${styleFeedDescription.text_number} text text_type_digits-large m-0`}
       >
-        138
+        {totalToday}
       </p>
     </div>
   );

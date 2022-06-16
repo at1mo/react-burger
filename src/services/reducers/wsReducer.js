@@ -39,5 +39,7 @@ export const wsReducer = (state = initialState, action) => {
         ...state,
         messages: action.payload,
       };
+    default:
+      return state;
   }
 };

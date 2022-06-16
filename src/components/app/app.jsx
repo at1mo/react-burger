@@ -15,10 +15,11 @@ import {
   ResetPasswordPage,
   IngredientsPage,
 } from "../../pages";
-import HistoryOrder from "../history-order/history-order";
+import OrderInfo from "../order-info/order-info";
 import { ProtectedRoute } from "../protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import styleApp from "./app.module.css"
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,11 @@ const App = () => {
           <HomePage />
         </Route>
         <Route path="/feed/:id" exact={true}>
-          {!modal && <HistoryOrder />}
+          {!modal && (
+            <div className={styleApp.feed}>
+              <OrderInfo />
+            </div>
+          )}
         </Route>
         <Route path="/feed" exact={true}>
           <FeedPage />
@@ -52,7 +57,7 @@ const App = () => {
           {!modal && <IngredientsPage />}
         </Route>
         <ProtectedRoute path="/profile/orders/:id" exact={true}>
-          {!modal && <HistoryOrder />}
+          {!modal && <OrderInfo />}
         </ProtectedRoute>
         <ProtectedRoute path="/profile" exact={false}>
           <ProfilePage />
@@ -80,14 +85,17 @@ const App = () => {
               <IngredientDetails />
             </Modal>
           </Route>
-          <Route path="/feed/:id" exact={true}>
-            <Modal closeModal={returnFromModal}>
-              <HistoryOrder />
-            </Modal>
-          </Route>
+          <Route
+            path="/feed/:id"
+            children={
+              <Modal closeModal={returnFromModal}>
+                <OrderInfo modal={true} />
+              </Modal>
+            }
+          ></Route>
           <Route path="/profile/orders/:id" exact={true}>
             <Modal closeModal={returnFromModal}>
-              <HistoryOrder />
+              <OrderInfo />
             </Modal>
           </Route>
         </>

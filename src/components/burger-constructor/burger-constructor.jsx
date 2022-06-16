@@ -90,7 +90,7 @@ const BurgerConstructor = () => {
   const sumOrder = useMemo(() => {
     return fillings.reduce(
       (previousValue, currentValue) => previousValue + currentValue.price,
-      bun[0].price
+      bun[0].price * 2
     );
   }, [bun, fillings]);
 

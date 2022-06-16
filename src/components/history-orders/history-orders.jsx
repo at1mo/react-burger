@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { historyOrders } from "../../utils/constants";
 import styleHistoryOrders from "./history-orders.module.css";
 
 const HistoryOrders = () => {
   const { url } = useRouteMatch();
   const location = useLocation();
+  const historyOrders = null;
 
   return (
     historyOrders && (

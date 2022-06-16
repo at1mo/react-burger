@@ -1,7 +1,3 @@
-.container {
-  width: 580px;
-}
-
 .wrapper {
   display: flex;
   gap: 36px;
@@ -15,6 +11,60 @@
 .feed__list {
   list-style: none;
   padding: 0;
+  display: grid;
+  column-gap: 24px;
+  row-gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.feed__item:nth-child(-n + 10) {
+  grid-column: 1;
+}
+
+.feed__item:nth-child(11) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.feed__item:nth-child(12) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.feed__item:nth-child(13) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.feed__item:nth-child(14) {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+.feed__item:nth-child(15) {
+  grid-column: 2;
+  grid-row: 5;
+}
+
+.feed__item:nth-child(16) {
+  grid-column: 2;
+  grid-row: 6;
+}
+
+.feed__item:nth-child(17) {
+  grid-column: 2;
+  grid-row: 7;
+}
+
+.feed__item:nth-child(18) {
+  grid-column: 2;
+  grid-row: 8;
+}
+
+.feed__item:nth-child(19) {
+  grid-column: 2;
+  grid-row: 9;
 }
 
 .orders__reardy {

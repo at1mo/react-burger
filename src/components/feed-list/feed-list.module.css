@@ -1,51 +1,11 @@
 .container {
   width: max-content;
-  max-height: calc(100vh - 132px);
+  max-height: calc(100vh - 188px);
   overflow-y: auto;
-  list-style: none;
-  padding: 0;
 }
 
 .link {
   padding: 0;
   text-decoration: none;
-  color: #F2F2F3;
-}
-
-.item {
-  width: 536px;
-  border-radius: 40px;
-  margin-top: 16px;
-  background-color: var(--background);
-}
-
-.item:first-child {
-  margin-top: 0;
-}
-
-.item__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.item__footer {
-  display: flex;
-  gap: 24px;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.item_images {
-  position: relative;
-}
-
-.item__image {
-  border-radius: 100px;
-  position: relative;
-}
-
-.item__sum {
-  display: flex;
-  align-items: center;
+  color: #f2f2f3;
 }
