@@ -24,3 +24,28 @@
 .drag__item_active {
   cursor: grabbing;
 }
+
+.placeholder {
+  text-align: center;
+  border: 4px dashed rgb(69, 69, 77);
+  word-wrap: break-word;
+  padding: 16px 24px;
+  border-radius: var(--common-border-radius-s);
+  background: rgba(47, 47, 55, 0.3);
+  max-width: 488px;
+  min-height: 48px;
+}
+
+.placeholder__bun {
+  text-align: center;
+  padding: 16px 24px;
+  border: 4px dashed rgb(69, 69, 77);
+  border-radius: var(--top-constructor-item-border-radius);
+  background: rgba(47, 47, 55, 0.3);
+  max-width: 488px;
+  min-height: 48px;
+}
+
+.border_avtive {
+  border: 1px solid #4c4cff;
+}

@@ -29,7 +29,7 @@ export function setCookie(name, value, props) {
       updatedCookie += "=" + propValue;
     }
   }
-  document.cookie = updatedCookie;
+  document.cookie = updatedCookie + "; path=/";
 }
 
 export function deleteCookie(name) {

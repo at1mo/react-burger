@@ -23,9 +23,9 @@ import OrderDetails from "../order-details/order-details";
 import SumCoin from "../sum-coin/sum-coin";
 
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import Spinners from "../spinners/spinners";
 
 import styleBurgerConstructors from "./burger-constructor.module.css";
-import Spinners from "../spinners/spinners";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -35,13 +35,7 @@ const BurgerConstructor = () => {
   const bun = useSelector((store) => store.burgerConstructor.bun);
   const fillings = useSelector((store) => store.burgerConstructor.fillings);
   const generateId = useSelector((store) => store.burgerConstructor.generateId);
-  if (!bun.length) {
-    ingredients.find((item) => {
-      if (item.type === "bun") {
-        return (bun[0] = item);
-      }
-    });
-  }
+
   const items = [...bun, ...bun, ...fillings];
 
   const idList = items.map((item) => item._id);
@@ -88,10 +82,12 @@ const BurgerConstructor = () => {
   };
 
   const sumOrder = useMemo(() => {
-    return fillings.reduce(
-      (previousValue, currentValue) => previousValue + currentValue.price,
-      bun[0].price
-    );
+    return bun.length
+      ? fillings.reduce(
+          (previousValue, currentValue) => previousValue + currentValue.price,
+          bun[0].price * 2
+        )
+      : 0;
   }, [bun, fillings]);
 
   const orderDetails = () => {
@@ -116,17 +112,26 @@ const BurgerConstructor = () => {
 
   if (orderRequest) return <Spinners />;
 
-  const borderColor = bunIsHover || fillingsIsHover ? "#4C4CFF" : "transparent"; // придумать класс
+  const bunIsHoverClass = bunIsHover && styleBurgerConstructors.border_avtive;
+  const fillingsIsHoverClass =
+    fillingsIsHover && styleBurgerConstructors.border_avtive;
+
   return (
     <div
       ref={dropFillings}
       className={`${styleBurgerConstructors.section} pt-25 pl-4 pr-4`}
     >
-      {!!bun.length && (
+      {bun.length <= 0 ? (
         <div
           ref={dropBun}
-          className={`${styleBurgerConstructors.item} pl-8`}
-          style={{ border: `1px solid ${borderColor}` }}
+          className={`${styleBurgerConstructors.placeholder__bun} ${bunIsHoverClass} ml-8 mt-4 text`}
+        >
+          Пожалуйста, перенесите сюда булку для создания заказа
+        </div>
+      ) : (
+        <div
+          ref={dropBun}
+          className={`${styleBurgerConstructors.item} ${bunIsHoverClass} pl-8`}
         >
           <ConstructorElement
             type="top"
@@ -138,21 +143,28 @@ const BurgerConstructor = () => {
         </div>
       )}
       <div
-        className={styleBurgerConstructors.container}
-        style={{ border: `1px solid ${borderColor}` }}
+        className={`${styleBurgerConstructors.container} ${fillingsIsHoverClass}`}
       >
-        {fillings.map((item, index) => {
-          return (
-            <ItemBurgerConstructor
-              key={generateId[index]}
-              index={index}
-              item={item}
-              moveItem={moveItem}
-            />
-          );
-        })}
+        {fillings.length <= 0 ? (
+          <div
+            className={`${styleBurgerConstructors.placeholder} ml-8 mt-4 text`}
+          >
+            Пожалуйста, перенесите сюда ингредиенты для создания заказа
+          </div>
+        ) : (
+          fillings.map((item, index) => {
+            return (
+              <ItemBurgerConstructor
+                key={generateId[index]}
+                index={index}
+                item={item}
+                moveItem={moveItem}
+              />
+            );
+          })
+        )}
       </div>
-      {bun.length && (
+      {bun.length > 0 && (
         <div className={`${styleBurgerConstructors.item} pl-8 pr-8 pt-4`}>
           <ConstructorElement
             type="bottom"

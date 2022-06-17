@@ -28,5 +28,8 @@ export const ProtectedRoute = ({ children, ...rest }) => {
 };
 
 ProtectedRoute.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element.isRequired,
+    PropTypes.bool,
+  ]),
 };

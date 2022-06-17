@@ -1,0 +1,11 @@
+.container {
+  width: max-content;
+  max-height: calc(100vh - 188px);
+  overflow-y: auto;
+}
+
+.link {
+  padding: 0;
+  text-decoration: none;
+  color: #f2f2f3;
+}

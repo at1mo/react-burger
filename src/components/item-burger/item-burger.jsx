@@ -2,7 +2,7 @@ import React from "react";
 import PropsTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { useDrag } from "react-dnd";
 
@@ -13,7 +13,6 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styleItemBurger from "./item-burger.module.css";
 
 const ItemBurger = (props) => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const id = props._id;
 
