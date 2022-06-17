@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getDataUser, updateDataUser } from "../../services/actions/auth";
 
 import {
   Input,
@@ -7,7 +8,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styleProfile from "./profile.module.css";
-import { getDataUser, updateDataUser } from "../../services/actions/auth";
 
 const Profile = () => {
   const dispatch = useDispatch();

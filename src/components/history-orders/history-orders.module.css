@@ -1,6 +1,6 @@
 .container {
   width: max-content;
-  max-height: calc(100vh - 132px);
+  max-height: calc(100vh - 128px);
   overflow-y: auto;
   list-style: none;
   padding: 0;

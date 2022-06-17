@@ -4,11 +4,10 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { getDateOrder } from "../../utils/date";
 
 import styleFeedItem from "./feed-item.module.css";
+import { statusText } from "../../utils/utils";
 
 const FeedItem = ({ order, ingredients, status }) => {
-  const color = null;
-
-  const statusOrder = null;
+  const statusOrder = statusText(status);
 
   const ingredientsInOrder = useMemo(() => {
     return order.ingredients.length && ingredients.length
@@ -56,8 +55,8 @@ const FeedItem = ({ order, ingredients, status }) => {
         </span>
       </div>
       <h3 className={`${styleFeedItem.name} ml-6 mt-6`}>{order.name}</h3>
-      <p className={styleFeedItem.status} style={color}>
-        {statusOrder}
+      <p className={styleFeedItem.status} style={statusOrder.style}>
+        {statusOrder.name}
       </p>
       <div className={`${styleFeedItem.ingredients} mt-6 ml-6 mr-6 pb-6`}>
         <div className={styleFeedItem.items}>

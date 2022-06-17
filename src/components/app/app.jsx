@@ -19,7 +19,7 @@ import OrderInfo from "../order-info/order-info";
 import { ProtectedRoute } from "../protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import styleApp from "./app.module.css"
+import styleApp from "./app.module.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,62 +40,71 @@ const App = () => {
     <>
       <AppHeader />
       <Switch location={locationBackground || location}>
-        <Route path="/" exact={true}>
+        <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/feed/:id" exact={true}>
+
+        <Route path="/feed" exact>
+          <FeedPage />
+        </Route>
+
+        <Route path="/feed/:id">
           {!modal && (
             <div className={styleApp.feed}>
               <OrderInfo />
             </div>
           )}
         </Route>
-        <Route path="/feed" exact={true}>
-          <FeedPage />
-        </Route>
-        <Route path="/ingredients/:id" exact={true}>
-          {!modal && <IngredientsPage />}
-        </Route>
-        <ProtectedRoute path="/profile/orders/:id" exact={true}>
-          {!modal && <OrderInfo />}
+
+        <ProtectedRoute path="/profile/orders/:id">
+          {!modal && (
+            <div className={styleApp.feed}>
+              <OrderInfo />
+            </div>
+          )}
         </ProtectedRoute>
-        <ProtectedRoute path="/profile" exact={false}>
+
+        <ProtectedRoute path="/profile">
           <ProfilePage />
         </ProtectedRoute>
-        <Route path="/login" exact={true}>
+
+        <Route path="/login" exact>
           <LoginPage />
         </Route>
-        <Route path="/register" exact={true}>
+
+        <Route path="/register" exact>
           <RegisterPage />
         </Route>
-        <Route path="/forgot-password" exact={true}>
+
+        <Route path="/forgot-password" exact>
           <ForgotPasswordPage />
         </Route>
-        <Route path="/reset-password" exact={true}>
+
+        <Route path="/reset-password" exact>
           <ResetPasswordPage />
         </Route>
+
+        <Route path="/ingredients/:id">{!modal && <IngredientsPage />}</Route>
+
         <Route>
           <NotFound404 />
         </Route>
       </Switch>
       {locationBackground && (
         <>
-          <Route path="/ingredients/:id" exact={true}>
+          <Route path="/ingredients/:id">
             <Modal name="Детали ингредиента" closeModal={returnFromModal}>
               <IngredientDetails />
             </Modal>
           </Route>
-          <Route
-            path="/feed/:id"
-            children={
-              <Modal closeModal={returnFromModal}>
-                <OrderInfo modal={true} />
-              </Modal>
-            }
-          ></Route>
-          <Route path="/profile/orders/:id" exact={true}>
+          <Route path="/feed/:id">
             <Modal closeModal={returnFromModal}>
-              <OrderInfo />
+              <OrderInfo modal={true} />
+            </Modal>
+          </Route>
+          <Route path="/profile/orders/:id">
+            <Modal closeModal={returnFromModal}>
+              <OrderInfo modal={true} />
             </Modal>
           </Route>
         </>

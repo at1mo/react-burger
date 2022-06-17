@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FeedDescription from "../../components/feed-description/feed-description";
 import FeedList from "../../components/feed-list/feed-list";
+import Spinners from "../../components/spinners/spinners";
 import {
   wsConnectionAllStart,
   wsConnectionClosed,
@@ -11,6 +12,7 @@ import styleFeed from "./feed.module.css";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
+  const wsConnected = useSelector((store) => store.ws.messages.orders);
 
   useEffect(() => {
     dispatch(wsConnectionAllStart());
@@ -18,6 +20,8 @@ export const FeedPage = () => {
       dispatch(wsConnectionClosed());
     };
   }, [dispatch]);
+
+  if (!wsConnected) return <Spinners />;
 
   return (
     <div className={styleFeed.container}>

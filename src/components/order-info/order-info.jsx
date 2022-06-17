@@ -13,28 +13,31 @@ import {
 } from "../../services/actions/wsAction";
 
 import styleOrderInfo from "./order-info.module.css";
+import Spinners from "../spinners/spinners";
 
 const OrderInfo = ({ modal = false }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const load = useSelector((store) => store.ws.wsConnected);
   const orders = useSelector((store) => store.ws.messages);
   const userOrders = useSelector((store) => store.ws.orders);
   const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const token = getCookie("token");
 
   const order = orders.orders?.find((order) => order._id === id)
     ? orders.orders?.find((order) => order._id === id)
     : userOrders.orders?.find((order) => order._id === id);
 
   useEffect(() => {
-    const token = getCookie("token");
     if (token) {
-      dispatch(wsConnectionStart(token.split("Bearer ")[1]));
+      dispatch(wsConnectionStart(token));
     }
     dispatch(wsConnectionAllStart());
+
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const ingredientsOrder =
     orders &&
@@ -68,6 +71,8 @@ const OrderInfo = ({ modal = false }) => {
       ? ingredientsOrder.reduce((prev, cur) => prev + cur.price, 0)
       : 0;
   }, [ingredientsOrder]);
+
+  if (!load) return <Spinners />;
 
   return (
     !!order && (
