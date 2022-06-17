@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import PropsTypes from "prop-types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { statusText } from "../../utils/utils";
 import { getDateOrder } from "../../utils/date";
@@ -17,6 +17,7 @@ import Spinners from "../spinners/spinners";
 
 const OrderInfo = ({ modal = false }) => {
   const { id } = useParams();
+  const { path } = useRouteMatch();
   const dispatch = useDispatch();
   const load = useSelector((store) => store.ws.wsConnected);
   const orders = useSelector((store) => store.ws.messages);
@@ -29,10 +30,11 @@ const OrderInfo = ({ modal = false }) => {
     : userOrders.orders?.find((order) => order._id === id);
 
   useEffect(() => {
-    if (token) {
+    if (!token || path.includes('feed')) {
+      dispatch(wsConnectionAllStart("/all"));
+    } else {
       dispatch(wsConnectionStart(token));
     }
-    dispatch(wsConnectionAllStart());
 
     return () => {
       dispatch(wsConnectionClosed());

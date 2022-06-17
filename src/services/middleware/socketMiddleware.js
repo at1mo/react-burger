@@ -6,9 +6,9 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { type, payload } = action;
       const { wsInit, wsAll, onOpen, onClose, onError, onMessage } = wsActions;
       if (type === wsAll) {
-        socket = new WebSocket(`${wsUrl}/all`);
+        socket = new WebSocket(`${wsUrl}${payload.endpoint}`);
       } else if (type === wsInit && payload?.token) {
-        socket = new WebSocket(`${wsUrl}?token=${payload.token}`);
+        socket = new WebSocket(`${wsUrl}${payload.endpoint}?token=${payload.token}`);
       }
       if (socket) {
         socket.onopen = (event) => {

@@ -15,7 +15,7 @@ export const FeedPage = () => {
   const wsConnected = useSelector((store) => store.ws.messages.orders);
 
   useEffect(() => {
-    dispatch(wsConnectionAllStart());
+    dispatch(wsConnectionAllStart("/all"));
     return () => {
       dispatch(wsConnectionClosed());
     };

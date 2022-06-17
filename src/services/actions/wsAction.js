@@ -8,10 +8,10 @@ export const WS_SEND_MESSAGE = "WS_SEND_MESSAGE";
 export const WS_CONNECTION_ALL_START = "WS_CONNECTION_ALL_START";
 export const WS_GET_ALL_MESSAGE = "WS_GET_ALL_MESSAGE";
 
-export const wsConnectionStart = (token) => {
+export const wsConnectionStart = (token, endpoint = "") => {
   return {
     type: WS_CONNECTION_START,
-    payload: { token },
+    payload: { endpoint, token },
   };
 };
 
@@ -47,9 +47,10 @@ export const wsSendMessage = (message) => {
   };
 };
 
-export const wsConnectionAllStart = () => {
+export const wsConnectionAllStart = (endpoint = "") => {
   return {
     type: WS_CONNECTION_ALL_START,
+    payload: { endpoint },
   };
 };
 

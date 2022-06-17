@@ -26,7 +26,6 @@ const App = () => {
   const location = useLocation();
   const locationBackground = location.state && location.state.background;
   const history = useHistory();
-  const modal = window.history.state !== null ? true : false;
 
   const returnFromModal = () => {
     history.goBack();
