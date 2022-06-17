@@ -49,19 +49,15 @@ const App = () => {
         </Route>
 
         <Route path="/feed/:id">
-          {!modal && (
-            <div className={styleApp.feed}>
-              <OrderInfo />
-            </div>
-          )}
+          <div className={styleApp.feed}>
+            <OrderInfo />
+          </div>
         </Route>
 
         <ProtectedRoute path="/profile/orders/:id">
-          {!modal && (
-            <div className={styleApp.feed}>
-              <OrderInfo />
-            </div>
-          )}
+          <div className={styleApp.feed}>
+            <OrderInfo />
+          </div>
         </ProtectedRoute>
 
         <ProtectedRoute path="/profile">
@@ -84,7 +80,9 @@ const App = () => {
           <ResetPasswordPage />
         </Route>
 
-        <Route path="/ingredients/:id">{!modal && <IngredientsPage />}</Route>
+        <Route path="/ingredients/:id">
+          <IngredientsPage />
+        </Route>
 
         <Route>
           <NotFound404 />
