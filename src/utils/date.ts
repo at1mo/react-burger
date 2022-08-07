@@ -6,7 +6,7 @@ import {
 } from "date-fns";
 import { ru } from "date-fns/locale";
 
-export const getDateOrder = (date) => {
+export const getDateOrder = (date: Date | number): string => {
   const dateCreatedAt = new Date(date);
   const day = isToday(dateCreatedAt)
     ? "Сегодня"

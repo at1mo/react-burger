@@ -1,4 +1,6 @@
-export const statusText = (status) => {
+import { TStatusText } from "./types";
+
+export const statusText = (status: string): TStatusText => {
   switch (status) {
     case "done":
       return {

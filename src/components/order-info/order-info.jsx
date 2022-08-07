@@ -39,7 +39,7 @@ const OrderInfo = ({ modal = false }) => {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [dispatch, token]);
+  }, [dispatch, token, path]);
 
   const ingredientsOrder =
     orders &&

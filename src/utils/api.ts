@@ -1,7 +1,7 @@
 import { config } from "./constants";
 import { getCookie, setCookie } from "./cookie";
 
-const checkResponse = (response) => {
+const checkResponse = <T>(response: Response): Promise<T> => {
   return response.ok
     ? response.json()
     : response.json().then((err) => Promise.reject(err));
@@ -13,7 +13,7 @@ export const getDataBurgersFromServer = async () => {
   }).then(checkResponse);
 };
 
-export const getNumberOrder = async (listId) => {
+export const getNumberOrder = async (listId: string) => {
   return await fetchWithRefresh(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
@@ -26,7 +26,7 @@ export const getNumberOrder = async (listId) => {
   });
 };
 
-export const forgotPasswordRequest = async (email) => {
+export const forgotPasswordRequest = async (email: string) => {
   return await fetch(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: config.headers,
@@ -36,7 +36,7 @@ export const forgotPasswordRequest = async (email) => {
   }).then(checkResponse);
 };
 
-export const resetPasswordRequest = async ({ password, code }) => {
+export const resetPasswordRequest = async ({ password, code }: { password: string, code: string}) => {
   return await fetch(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: config.headers,
@@ -47,7 +47,7 @@ export const resetPasswordRequest = async ({ password, code }) => {
   }).then(checkResponse);
 };
 
-export const loginRequest = async ({ email, password }) => {
+export const loginRequest = async ({ email, password }: { email: string, password: string}) => {
   return await fetch(`${config.baseUrl}/auth/login`, {
     method: "POST",
     headers: config.headers,
@@ -58,7 +58,7 @@ export const loginRequest = async ({ email, password }) => {
   }).then(checkResponse);
 };
 
-export const registerRequest = async ({ email, password, name }) => {
+export const registerRequest = async ({ email, password, name }: { email: string, password: string, name: string}) => {
   return await fetch(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: config.headers,
@@ -89,7 +89,7 @@ export const tokenRequest = async () => {
     }),
   })
     .then(checkResponse)
-    .then((refreshData) => {
+    .then((refreshData: any) => {
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
@@ -111,7 +111,7 @@ export const getDataUserRequest = async () => {
   });
 };
 
-export const updateDataUserRequest = async ({ name, email, password }) => {
+export const updateDataUserRequest = async ({ name, email, password }: { name: string, email: string, password: string}) => {
   return await fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
@@ -126,17 +126,17 @@ export const updateDataUserRequest = async ({ name, email, password }) => {
   });
 };
 
-export async function fetchWithRefresh(url, options) {
+export async function fetchWithRefresh(url: string, options: any) {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (
       err.message === "jwt malformed" ||
       err.message === "jwt expired" ||
       err.message === "Token is invalid"
     ) {
-      const refreshData = await tokenRequest();
+      const refreshData: any = await tokenRequest();
       options.headers.Authorization = refreshData.accessToken;
       const res = await fetch(url, options);
       return await checkResponse(res);
