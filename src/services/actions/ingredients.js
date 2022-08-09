@@ -24,11 +24,9 @@ export function getIngredients() {
         }
       })
       .catch(() => {
-        {
-          dispatch({
-            type: GET_INGREDIENTS_FAILED,
-          });
-        }
+        dispatch({
+          type: GET_INGREDIENTS_FAILED,
+        });
       });
   };
 }

@@ -26,11 +26,9 @@ export function getOrder(ingredients) {
         }
       })
       .catch(() => {
-        {
-          dispatch({
-            type: GET_ORDER_FAILED,
-          });
-        }
+        dispatch({
+          type: GET_ORDER_FAILED,
+        });
       });
   };
 }
