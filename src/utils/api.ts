@@ -1,5 +1,11 @@
 import { config } from "./constants";
 import { getCookie, setCookie } from "./cookie";
+import {
+  IDataBurgers,
+  TConfig,
+  TResponseLoginSuccess,
+  TResponsePasswordSuccess,
+} from "./types";
 
 const checkResponse = <T>(response: Response): Promise<T> => {
   return response.ok
@@ -10,7 +16,7 @@ const checkResponse = <T>(response: Response): Promise<T> => {
 export const getDataBurgersFromServer = async () => {
   return await fetch(`${config.baseUrl}/ingredients`, {
     headers: config.headers,
-  }).then(checkResponse);
+  }).then((res) => checkResponse<IDataBurgers>(res));
 };
 
 export const getNumberOrder = async (listId: string) => {
@@ -33,10 +39,16 @@ export const forgotPasswordRequest = async (email: string) => {
     body: JSON.stringify({
       email: email,
     }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TResponsePasswordSuccess>(res));
 };
 
-export const resetPasswordRequest = async ({ password, code }: { password: string, code: string}) => {
+export const resetPasswordRequest = async ({
+  password,
+  code,
+}: {
+  password: string;
+  code: string;
+}) => {
   return await fetch(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: config.headers,
@@ -44,10 +56,16 @@ export const resetPasswordRequest = async ({ password, code }: { password: strin
       password: password,
       token: code,
     }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TResponsePasswordSuccess>(res));
 };
 
-export const loginRequest = async ({ email, password }: { email: string, password: string}) => {
+export const loginRequest = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
   return await fetch(`${config.baseUrl}/auth/login`, {
     method: "POST",
     headers: config.headers,
@@ -55,10 +73,18 @@ export const loginRequest = async ({ email, password }: { email: string, passwor
       email: email,
       password: password,
     }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TResponseLoginSuccess>(res));
 };
 
-export const registerRequest = async ({ email, password, name }: { email: string, password: string, name: string}) => {
+export const registerRequest = async ({
+  email,
+  password,
+  name,
+}: {
+  email: string;
+  password: string;
+  name: string;
+}) => {
   return await fetch(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: config.headers,
@@ -67,7 +93,7 @@ export const registerRequest = async ({ email, password, name }: { email: string
       password: password,
       name: name,
     }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TResponseLoginSuccess>(res));
 };
 
 export const logoutRequest = async () => {
@@ -77,7 +103,7 @@ export const logoutRequest = async () => {
     body: JSON.stringify({
       token: localStorage.refreshToken,
     }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TResponsePasswordSuccess>(res));
 };
 
 export const tokenRequest = async () => {
@@ -111,7 +137,15 @@ export const getDataUserRequest = async () => {
   });
 };
 
-export const updateDataUserRequest = async ({ name, email, password }: { name: string, email: string, password: string}) => {
+export const updateDataUserRequest = async ({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
   return await fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
@@ -126,7 +160,10 @@ export const updateDataUserRequest = async ({ name, email, password }: { name: s
   });
 };
 
-export async function fetchWithRefresh(url: string, options: any) {
+export async function fetchWithRefresh<T>(
+  url: string,
+  options: TConfig
+): Promise<T> {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
@@ -136,7 +173,7 @@ export async function fetchWithRefresh(url: string, options: any) {
       err.message === "jwt expired" ||
       err.message === "Token is invalid"
     ) {
-      const refreshData: any = await tokenRequest();
+      const refreshData = await tokenRequest();
       options.headers.Authorization = refreshData.accessToken;
       const res = await fetch(url, options);
       return await checkResponse(res);
