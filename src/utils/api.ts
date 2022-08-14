@@ -4,7 +4,10 @@ import {
   IDataBurgers,
   TConfig,
   TResponseLoginSuccess,
+  TResponseOrder,
   TResponsePasswordSuccess,
+  TResponseToken,
+  TResponseUser,
 } from "./types";
 
 const checkResponse = <T>(response: Response): Promise<T> => {
@@ -20,7 +23,7 @@ export const getDataBurgersFromServer = async () => {
 };
 
 export const getNumberOrder = async (listId: string) => {
-  return await fetchWithRefresh(`${config.baseUrl}/orders`, {
+  return await fetchWithRefresh<TResponseOrder>(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -114,8 +117,8 @@ export const tokenRequest = async () => {
       token: localStorage.refreshToken,
     }),
   })
-    .then(checkResponse)
-    .then((refreshData: any) => {
+    .then((res) => checkResponse<TResponseToken>(res))
+    .then((refreshData: TResponseToken) => {
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
@@ -128,7 +131,7 @@ export const tokenRequest = async () => {
 };
 
 export const getDataUserRequest = async () => {
-  return await fetchWithRefresh(`${config.baseUrl}/auth/user`, {
+  return await fetchWithRefresh<TResponseUser>(`${config.baseUrl}/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -146,7 +149,7 @@ export const updateDataUserRequest = async ({
   email: string;
   password: string;
 }) => {
-  return await fetchWithRefresh(`${config.baseUrl}/auth/user`, {
+  return await fetchWithRefresh<TResponseUser>(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

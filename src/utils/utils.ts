@@ -1,23 +1,30 @@
 import { TStatusText } from "./types";
 
-export const statusText = (status: string): TStatusText => {
+enum EStatus {
+  DONE = "done",
+  PENDING = "pending",
+  CREATED = "created",
+  CANCEL = "cancel",
+}
+
+export const statusText = (status: EStatus): TStatusText => {
   switch (status) {
-    case "done":
+    case EStatus.DONE:
       return {
         name: "Выполнен",
         style: { color: "#00cccc" },
       };
-    case "pending":
+    case EStatus.PENDING:
       return {
         name: "Готовится",
         style: { color: "#F2F2F3" },
       };
-    case "created":
+    case EStatus.CREATED:
       return {
         name: "Создан",
         style: { color: "#F2F2F3" },
       };
-    case "cancel":
+    case EStatus.CANCEL:
       return {
         name: "Отменен",
         style: { color: "red" },
