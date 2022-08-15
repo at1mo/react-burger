@@ -32,7 +32,7 @@ export type TIngredient = {
 
 export interface IDataBurgers {
   readonly success: boolean;
-  readonly data: ReadonlyArray<TIngredient>;
+  readonly data: Array<TIngredient>;
 }
 
 export type TResponsePasswordSuccess = {
@@ -40,7 +40,7 @@ export type TResponsePasswordSuccess = {
   readonly message: string;
 };
 
-type TUser = {
+export type TUser = {
   readonly email: string;
   readonly name: string;
 };
@@ -65,7 +65,7 @@ type TOwner = TUser & {
   readonly updatedAt: string | Date;
 };
 
-type TOrder = {
+export type TOrder = {
   readonly createdAt: string | Date;
   readonly ingredients: Array<TIngredient>;
   readonly name: string;
@@ -81,4 +81,20 @@ export type TResponseOrder = {
   readonly name: string;
   readonly order: TOrder;
   readonly success: boolean;
+};
+
+export type TRedirectHistory = () => void;
+
+export type TResetPasswordForm = {
+  password: string;
+  code: string;
+};
+
+export type TLoginForm = {
+  email: string;
+  password: string;
+};
+
+export type TRegisterForm = TLoginForm & {
+  name: string;
 };

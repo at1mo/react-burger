@@ -3,6 +3,9 @@ import { getCookie, setCookie } from "./cookie";
 import {
   IDataBurgers,
   TConfig,
+  TLoginForm,
+  TRegisterForm,
+  TResetPasswordForm,
   TResponseLoginSuccess,
   TResponseOrder,
   TResponsePasswordSuccess,
@@ -22,7 +25,7 @@ export const getDataBurgersFromServer = async () => {
   }).then((res) => checkResponse<IDataBurgers>(res));
 };
 
-export const getNumberOrder = async (listId: string) => {
+export const getNumberOrder = async (listId: Array<string>) => {
   return await fetchWithRefresh<TResponseOrder>(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
@@ -48,10 +51,7 @@ export const forgotPasswordRequest = async (email: string) => {
 export const resetPasswordRequest = async ({
   password,
   code,
-}: {
-  password: string;
-  code: string;
-}) => {
+}: TResetPasswordForm) => {
   return await fetch(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: config.headers,
@@ -62,13 +62,7 @@ export const resetPasswordRequest = async ({
   }).then((res) => checkResponse<TResponsePasswordSuccess>(res));
 };
 
-export const loginRequest = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
+export const loginRequest = async ({ email, password }: TLoginForm) => {
   return await fetch(`${config.baseUrl}/auth/login`, {
     method: "POST",
     headers: config.headers,
@@ -83,11 +77,7 @@ export const registerRequest = async ({
   email,
   password,
   name,
-}: {
-  email: string;
-  password: string;
-  name: string;
-}) => {
+}: TRegisterForm) => {
   return await fetch(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: config.headers,
@@ -144,11 +134,7 @@ export const updateDataUserRequest = async ({
   name,
   email,
   password,
-}: {
-  name: string;
-  email: string;
-  password: string;
-}) => {
+}: TRegisterForm) => {
   return await fetchWithRefresh<TResponseUser>(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
