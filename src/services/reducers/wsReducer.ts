@@ -1,18 +1,37 @@
+import { TWsOrders } from "../../utils/types";
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_GET_ALL_MESSAGE,
+  IWsActions,
 } from "../actions/wsAction";
 
-const initialState = {
+type TWsState = {
+  wsConnected: boolean;
+  messages: {
+    orders: ReadonlyArray<TWsOrders>;
+    total: number;
+    totalToday: number;
+  } | {};
+  orders: {
+    orders: ReadonlyArray<TWsOrders>;
+    total: number;
+    totalToday: number;
+  } | {};
+};
+
+const initialState: TWsState = {
   wsConnected: false,
   messages: {},
   orders: {},
 };
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (
+  state = initialState,
+  action: IWsActions
+): TWsState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

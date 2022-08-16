@@ -77,6 +77,16 @@ export type TOrder = {
   readonly _id: string;
 };
 
+export type TWsOrders = {
+  readonly createdAt: string | Date;
+  readonly ingredients: Array<string>;
+  readonly name: string;
+  readonly number: number;
+  readonly status: string;
+  readonly updatedAt: string | Date;
+  readonly _id: string;
+};
+
 export type TResponseOrder = {
   readonly name: string;
   readonly order: TOrder;

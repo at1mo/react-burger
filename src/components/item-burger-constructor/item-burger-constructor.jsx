@@ -4,7 +4,7 @@ import PropsTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 
-import { DELETE_FILLING } from "../../services/actions/constructor";
+import { deleteFillingAction } from "../../services/actions/constructor";
 
 import {
   ConstructorElement,
@@ -52,10 +52,7 @@ const ItemBurgerConstructor = ({ item, index, moveItem }) => {
   });
 
   const onDelete = () => {
-    dispatch({
-      type: DELETE_FILLING,
-      index,
-    });
+    dispatch(deleteFillingAction(index));
   };
 
   const dndRef = dragRef(dropRef(ref));

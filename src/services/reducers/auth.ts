@@ -20,32 +20,48 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_FAILED,
   USER_UPDATE_SUCCESS,
+  TAuthActions,
 } from "../actions/auth";
 
-const initialState = {
+type TAuthState = {
+  name: string;
+  email: string;
+  forgotPasswordRequest: boolean;
+  forgotPasswordFailed: boolean;
+  resetPasswordRequest: boolean;
+  resetPasswordFailed: boolean;
+  loginRequest: boolean;
+  loginFailed: boolean;
+  registerRequest: boolean;
+  registerFailed: boolean;
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+  authRequest: boolean;
+  authFailed: boolean;
+};
+
+const initialState: TAuthState = {
   name: "",
   email: "",
 
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
-
   resetPasswordRequest: false,
   resetPasswordFailed: false,
-
   loginRequest: false,
   loginFailed: false,
-
   registerRequest: false,
   registerFailed: false,
-
   logoutRequest: false,
   logoutFailed: false,
-
   authRequest: false,
   authFailed: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (
+  state = initialState,
+  action: TAuthActions
+): TAuthState => {
   switch (action.type) {
     case FORGOT_PASSWORD_REQUEST: {
       return {
@@ -112,14 +128,14 @@ export const authReducer = (state = initialState, action) => {
     case REGISTER_REQUEST: {
       return {
         ...state,
-        regiterRequest: true,
+        registerRequest: true,
       };
     }
     case REGISTER_SUCCESS: {
       return {
         ...state,
-        regiterRequest: false,
-        regiterFailed: false,
+        registerRequest: false,
+        registerFailed: false,
         name: action.user.name,
         email: action.user.email,
       };

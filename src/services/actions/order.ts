@@ -21,6 +21,14 @@ export type TGetOrderFailedAction = {
   readonly type: typeof GET_ORDER_FAILED;
 };
 
+export type TOpenOrderDetailsAction = {
+  readonly type: typeof OPEN_ORDER_DETAILS;
+};
+
+export type TCloseOrderDetailsAction = {
+  readonly type: typeof CLOSE_ORDER_DETAILS;
+};
+
 export const getOrderRequest = (): TGetOrderRequestAction => ({
   type: GET_ORDER_REQUEST,
 });
@@ -34,10 +42,20 @@ export const getOrderFailed = (): TGetOrderFailedAction => ({
   type: GET_ORDER_FAILED,
 });
 
+export const openOrderDetails = (): TOpenOrderDetailsAction => ({
+  type: OPEN_ORDER_DETAILS,
+});
+
+export const closeOrderDetailsAction = (): TCloseOrderDetailsAction => ({
+  type: CLOSE_ORDER_DETAILS,
+});
+
 export type TOrderActions =
   | TGetOrderRequestAction
   | TGetOrderSuccessAction
-  | TGetOrderFailedAction;
+  | TGetOrderFailedAction
+  | TOpenOrderDetailsAction
+  | TCloseOrderDetailsAction;
 
 export function getOrder(ingredients: Array<string>) {
   return function (dispatch: any) {

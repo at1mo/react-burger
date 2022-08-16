@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import {
-  ADD_BUN,
-  ADD_FILLING,
-  GENERATE_ID,
-  MOVE_ITEM,
-  RESET_CONSTRUCTOR,
+  addBunAction,
+  addFillingAction,
+  generateIdAction,
+  moveItemAction,
+  resetConstructorAction,
 } from "../../services/actions/constructor";
 import {
-  CLOSE_ORDER_DETAILS,
+  closeOrderDetailsAction,
   getOrder,
-  OPEN_ORDER_DETAILS,
+  openOrderDetails,
 } from "../../services/actions/order";
 import { useHistory } from "react-router-dom";
 
@@ -43,12 +43,13 @@ const BurgerConstructor = () => {
 
   const [{ bunIsHover }, dropBun] = useDrop({
     accept: "bun",
-    drop(item) {
-      dispatch({
-        type: ADD_BUN,
-        ...item,
-        payload: ingredients.find((el) => el._id === item.id),
-      });
+    drop({ id }) {
+      dispatch(
+        addBunAction(
+          id,
+          ingredients.find((el) => el._id === id)
+        )
+      );
     },
     collect: (monitor) => ({
       bunIsHover: monitor.isOver(),
@@ -57,16 +58,14 @@ const BurgerConstructor = () => {
 
   const [{ fillingsIsHover }, dropFillings] = useDrop({
     accept: ["main", "sauce"],
-    drop(item) {
-      dispatch({
-        type: GENERATE_ID,
-        payload: generateUUID(),
-      });
-      dispatch({
-        type: ADD_FILLING,
-        ...item,
-        payload: ingredients.find((el) => el._id === item.id),
-      });
+    drop({ id }) {
+      dispatch(generateIdAction(generateUUID()));
+      dispatch(
+        addFillingAction(
+          id,
+          ingredients.find((el) => el._id === id)
+        )
+      );
     },
     collect: (monitor) => ({
       fillingsIsHover: monitor.isOver(),
@@ -74,11 +73,7 @@ const BurgerConstructor = () => {
   });
 
   const moveItem = (dragIndex, hoverIndex) => {
-    dispatch({
-      type: MOVE_ITEM,
-      dragIndex,
-      hoverIndex,
-    });
+    dispatch(moveItemAction(dragIndex, hoverIndex));
   };
 
   const sumOrder = useMemo(() => {
@@ -93,21 +88,15 @@ const BurgerConstructor = () => {
   const orderDetails = () => {
     if (localStorage.refreshToken) {
       dispatch(getOrder(idList));
-      dispatch({
-        type: OPEN_ORDER_DETAILS,
-      });
+      dispatch(openOrderDetails());
     } else {
       hisroty.push("/login");
     }
   };
 
   const closeOrderDetails = () => {
-    dispatch({
-      type: CLOSE_ORDER_DETAILS,
-    });
-    dispatch({
-      type: RESET_CONSTRUCTOR,
-    });
+    dispatch(closeOrderDetailsAction());
+    dispatch(resetConstructorAction());
   };
 
   if (orderRequest) return <Spinners />;
