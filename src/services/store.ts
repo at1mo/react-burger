@@ -1,11 +1,7 @@
-import thunk, { ThunkAction } from "redux-thunk";
-import { ActionCreator, applyMiddleware, compose, createStore } from "redux";
+import thunk from "redux-thunk";
+import { applyMiddleware, compose, createStore } from "redux";
 import { rootReducer } from "./reducers";
-import { useSelector as baseUseSelector } from "react-redux";
-import {
-  TypedUseSelectorHook,
-  useDispatch as baseUseDispatch,
-} from "react-redux";
+
 import { socketMiddleware } from "./middleware/socketMiddleware";
 import {
   WS_CONNECTION_ALL_START,
@@ -17,11 +13,20 @@ import {
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
 } from "./actions/wsAction";
-import { TGetIngredientsFailedAction, TGetIngredientsRequestAction, TGetIngredientsSuccessAction } from "./actions/ingredients";
 
 const wsUrl: string = "wss://norma.nomoreparties.space/orders";
 
-const wsActions = {
+export type TWsActionsOptions = {
+  readonly wsAll?: typeof WS_CONNECTION_ALL_START;
+  readonly wsInit?: typeof WS_CONNECTION_START;
+  readonly wsSendMessage: typeof WS_SEND_MESSAGE;
+  readonly onOpen: typeof WS_CONNECTION_SUCCESS;
+  readonly onClose: typeof WS_CONNECTION_CLOSED;
+  readonly onError: typeof WS_CONNECTION_ERROR;
+  readonly onMessage: typeof WS_GET_ALL_MESSAGE | typeof WS_GET_MESSAGE;
+};
+
+const wsActions: TWsActionsOptions = {
   wsAll: WS_CONNECTION_ALL_START,
   wsSendMessage: WS_SEND_MESSAGE,
   onOpen: WS_CONNECTION_SUCCESS,
@@ -30,7 +35,7 @@ const wsActions = {
   onMessage: WS_GET_ALL_MESSAGE,
 };
 
-const wsUserActions = {
+const wsUserActions: TWsActionsOptions = {
   wsInit: WS_CONNECTION_START,
   wsSendMessage: WS_SEND_MESSAGE,
   onOpen: WS_CONNECTION_SUCCESS,
@@ -39,22 +44,13 @@ const wsUserActions = {
   onMessage: WS_GET_MESSAGE,
 };
 
-export type TAppState = ReturnType<typeof store.getState>;
-export type TAppAction = TGetIngredientsRequestAction | TGetIngredientsSuccessAction | TGetIngredientsFailedAction;
-export type TAppThunk<ReturnType = void> = ActionCreator<
-  ThunkAction<ReturnType, TAppState, never, TAppAction>
->;
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
-export type TAppDispatch = typeof store.dispatch | TAppThunk;
-export const useDispatch: () => TAppDispatch = baseUseDispatch;
-export const useSelector: TypedUseSelectorHook<TAppState> = baseUseSelector;
-
-const composeEnhancers =
-  // @ts-ignore
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? // @ts-ignore
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancer = composeEnhancers(
   applyMiddleware(

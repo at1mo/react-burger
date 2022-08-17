@@ -15,6 +15,7 @@ import {
   TResetPasswordForm,
   TUser,
 } from "../../utils/types";
+import { AppDispatch } from "../types";
 
 export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
 export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
@@ -217,7 +218,7 @@ export type TAuthActions =
   | TUserUpdateFailedAction;
 
 export function forgotPassword(email: string, redirect: TRedirectHistory) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(forgotPasswordRequestAction());
     forgotPasswordRequest(email)
       .then((res) => {
@@ -238,7 +239,7 @@ export function resetPassword(
   form: TResetPasswordForm,
   redirect: TRedirectHistory
 ) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(resetPasswordRequestAction());
     resetPasswordRequest(form)
       .then((res) => {
@@ -256,7 +257,7 @@ export function resetPassword(
 }
 
 export function login(form: TLoginForm) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(loginRequestAction());
     loginRequest(form)
       .then((res) => {
@@ -277,7 +278,7 @@ export function login(form: TLoginForm) {
 }
 
 export function register(form: TRegisterForm, redirect: TRedirectHistory) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(registerRequestAction());
     registerRequest(form)
       .then((res) => {
@@ -299,7 +300,7 @@ export function register(form: TRegisterForm, redirect: TRedirectHistory) {
 }
 
 export function logout(redirect: TRedirectHistory) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(logoutRequestAction());
     logoutRequest()
       .then((res) => {
@@ -319,7 +320,7 @@ export function logout(redirect: TRedirectHistory) {
 }
 
 export function getDataUser() {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(userRequest());
     getDataUserRequest()
       .then((res) => {
@@ -336,7 +337,7 @@ export function getDataUser() {
 }
 
 export function updateDataUser(form: TRegisterForm) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(userUpdateRequest());
     updateDataUserRequest(form)
       .then((res) => {

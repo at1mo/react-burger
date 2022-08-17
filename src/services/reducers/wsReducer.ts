@@ -8,7 +8,7 @@ import {
   IWsActions,
 } from "../actions/wsAction";
 
-type TWsState = {
+export type TWsState = {
   wsConnected: boolean;
   messages: {
     orders: ReadonlyArray<TWsOrders>;

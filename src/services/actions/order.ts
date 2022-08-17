@@ -1,5 +1,6 @@
 import { getNumberOrder } from "../../utils/api";
 import { TOrder } from "../../utils/types";
+import { AppDispatch } from "../types";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
@@ -58,7 +59,7 @@ export type TOrderActions =
   | TCloseOrderDetailsAction;
 
 export function getOrder(ingredients: Array<string>) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(getOrderRequest());
     getNumberOrder(ingredients)
       .then((res) => {

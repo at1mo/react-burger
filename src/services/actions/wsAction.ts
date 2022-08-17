@@ -1,3 +1,5 @@
+import { TWsState } from "../reducers/wsReducer";
+
 export const WS_CONNECTION_START = "WS_CONNECTION_START";
 export const WS_CONNECTION_SUCCESS = "WS_CONNECTION_SUCCESS";
 export const WS_CONNECTION_ERROR = "WS_CONNECTION_ERROR";
@@ -30,12 +32,12 @@ export type TWsConnectionClosedAction = {
 
 export type TWsGetMessageAction = {
   readonly type: typeof WS_GET_MESSAGE;
-  payload: any;
+  payload: TWsState;
 };
 
 export type TWsSendMessageAction = {
   readonly type: typeof WS_SEND_MESSAGE;
-  payload: any;
+  payload: TWsState;
 };
 
 export type TWsConnectionAllStartAction = {
@@ -47,7 +49,7 @@ export type TWsConnectionAllStartAction = {
 
 export type TWsGetAllMessageAction = {
   readonly type: typeof WS_GET_ALL_MESSAGE;
-  payload: any;
+  payload: TWsState;
 };
 
 export type IWsActions =
@@ -80,16 +82,14 @@ export const wsConnectionClosed = (): TWsConnectionClosedAction => ({
   type: WS_CONNECTION_CLOSED,
 });
 
-export const wsGetMessage = (message: any): TWsGetMessageAction => {
-  console.log("wsGetMessage", message);
+export const wsGetMessage = (message: TWsState): TWsGetMessageAction => {
   return {
     type: WS_GET_MESSAGE,
     payload: message,
   };
 };
 
-export const wsSendMessage = (message: any): TWsSendMessageAction => {
-  console.log("wsSendMessage", message);
+export const wsSendMessage = (message: TWsState): TWsSendMessageAction => {
   return {
     type: WS_SEND_MESSAGE,
     payload: message,
@@ -103,8 +103,7 @@ export const wsConnectionAllStart = (
   payload: { endpoint },
 });
 
-export const wsGetAllMessage = (message: any): TWsGetAllMessageAction => {
-  console.log("wsGetAllMessage", message);
+export const wsGetAllMessage = (message: TWsState): TWsGetAllMessageAction => {
   return {
     type: WS_GET_ALL_MESSAGE,
     payload: message,

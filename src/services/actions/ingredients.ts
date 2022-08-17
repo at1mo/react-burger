@@ -1,5 +1,6 @@
 import { getDataBurgersFromServer } from "../../utils/api";
 import { TIngredient } from "../../utils/types";
+import { AppDispatch } from "../types";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -39,7 +40,7 @@ export type TIngredientsActions =
   | TGetIngredientsFailedAction;
 
 export function getIngredients() {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch(getIngredientsRequest());
 
     getDataBurgersFromServer()
