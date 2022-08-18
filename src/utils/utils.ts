@@ -1,13 +1,13 @@
 import { TStatusText } from "./types";
 
-enum EStatus {
+export enum EStatus {
   DONE = "done",
   PENDING = "pending",
   CREATED = "created",
   CANCEL = "cancel",
 }
 
-export const statusText = (status: EStatus): TStatusText => {
+export const statusText = (status: EStatus | string): TStatusText => {
   switch (status) {
     case EStatus.DONE:
       return {
@@ -31,7 +31,7 @@ export const statusText = (status: EStatus): TStatusText => {
       };
     default:
       return {
-        name: "Неизвестный статус",
+        name: "",
         style: { color: "#F2F2F3" },
       };
   }

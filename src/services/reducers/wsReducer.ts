@@ -1,4 +1,4 @@
-import { TWsOrders } from "../../utils/types";
+import { IOdersData } from "../../utils/types";
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
@@ -10,22 +10,22 @@ import {
 
 export type TWsState = {
   wsConnected: boolean;
-  messages: {
-    orders: ReadonlyArray<TWsOrders>;
-    total: number;
-    totalToday: number;
-  } | {};
-  orders: {
-    orders: ReadonlyArray<TWsOrders>;
-    total: number;
-    totalToday: number;
-  } | {};
+  messages: IOdersData;
+  orders: IOdersData;
 };
 
 const initialState: TWsState = {
   wsConnected: false,
-  messages: {},
-  orders: {},
+  messages: {
+    orders: [],
+    total: 0,
+    totalToday: 0,
+  },
+  orders: {
+    orders: [],
+    total: 0,
+    totalToday: 0,
+  },
 };
 
 export const wsReducer = (

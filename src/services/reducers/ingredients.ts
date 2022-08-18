@@ -7,7 +7,7 @@ import {
 } from "../actions/ingredients";
 
 type TIngredientsState = {
-  ingredients: ReadonlyArray<TIngredient>;
+  ingredients: Array<TIngredient>;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
 };

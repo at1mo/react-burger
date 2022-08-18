@@ -1,5 +1,5 @@
 export type TStatusText = {
-  name: "Выполнен" | "Готовится" | "Создан" | "Отменен" | "Неизвестный статус";
+  name: "Выполнен" | "Готовится" | "Создан" | "Отменен" | "";
   style: {
     color: string;
   };
@@ -61,29 +61,29 @@ export type TResponseUser = {
 };
 
 type TOwner = TUser & {
-  readonly createdAt: string | Date;
-  readonly updatedAt: string | Date;
+  readonly createdAt: string;
+  readonly updatedAt: string;
 };
 
 export type TOrder = {
-  readonly createdAt: string | Date;
+  readonly createdAt: string;
   readonly ingredients: Array<TIngredient>;
   readonly name: string;
   readonly number: number;
   readonly owner: TOwner;
   readonly price: number;
   readonly status: string;
-  readonly updatedAt: string | Date;
+  readonly updatedAt: string;
   readonly _id: string;
 };
 
 export type TWsOrders = {
-  readonly createdAt: string | Date;
+  readonly createdAt: string;
   readonly ingredients: Array<string>;
   readonly name: string;
   readonly number: number;
   readonly status: string;
-  readonly updatedAt: string | Date;
+  readonly updatedAt: string;
   readonly _id: string;
 };
 
@@ -108,3 +108,9 @@ export type TLoginForm = {
 export type TRegisterForm = TLoginForm & {
   name: string;
 };
+
+export interface IOdersData {
+  orders: Array<TWsOrders>;
+  total: number;
+  totalToday: number;
+}

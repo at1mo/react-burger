@@ -1,3 +1,4 @@
+import { IOdersData } from "../../utils/types";
 import { TWsState } from "../reducers/wsReducer";
 
 export const WS_CONNECTION_START = "WS_CONNECTION_START";
@@ -32,7 +33,7 @@ export type TWsConnectionClosedAction = {
 
 export type TWsGetMessageAction = {
   readonly type: typeof WS_GET_MESSAGE;
-  payload: TWsState;
+  payload: IOdersData;
 };
 
 export type TWsSendMessageAction = {
@@ -49,7 +50,7 @@ export type TWsConnectionAllStartAction = {
 
 export type TWsGetAllMessageAction = {
   readonly type: typeof WS_GET_ALL_MESSAGE;
-  payload: TWsState;
+  payload: IOdersData;
 };
 
 export type IWsActions =
@@ -82,7 +83,7 @@ export const wsConnectionClosed = (): TWsConnectionClosedAction => ({
   type: WS_CONNECTION_CLOSED,
 });
 
-export const wsGetMessage = (message: TWsState): TWsGetMessageAction => {
+export const wsGetMessage = (message: IOdersData): TWsGetMessageAction => {
   return {
     type: WS_GET_MESSAGE,
     payload: message,
@@ -103,7 +104,9 @@ export const wsConnectionAllStart = (
   payload: { endpoint },
 });
 
-export const wsGetAllMessage = (message: TWsState): TWsGetAllMessageAction => {
+export const wsGetAllMessage = (
+  message: IOdersData
+): TWsGetAllMessageAction => {
   return {
     type: WS_GET_ALL_MESSAGE,
     payload: message,

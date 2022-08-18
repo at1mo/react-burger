@@ -12,7 +12,7 @@ export type TGetIngredientsRequestAction = {
 
 export type TGetIngredientsSuccessAction = {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  ingredients: ReadonlyArray<TIngredient>;
+  ingredients: Array<TIngredient>;
 };
 
 export type TGetIngredientsFailedAction = {
