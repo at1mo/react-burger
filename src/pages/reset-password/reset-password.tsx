@@ -28,8 +28,6 @@ export const ResetPasswordPage: FC = () => {
       passwordRef.current?.type === "password" ? "text" : "password";
   };
 
-  console.log(history.location);
-
   if (
     typeof history.location.state == "undefined" ||
     !history.location.state.reset

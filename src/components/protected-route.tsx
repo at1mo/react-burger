@@ -1,12 +1,7 @@
 import React, { FC } from "react";
-import { Route, Redirect, useLocation } from "react-router-dom";
+import { Route, Redirect, useLocation, RouteProps } from "react-router-dom";
 
-interface IProtectedRoute {
-  children: React.ReactNode;
-  path?: string;
-}
-
-export const ProtectedRoute: FC<IProtectedRoute> = ({ children, ...rest }) => {
+export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
   const location = useLocation();
 
   const refreshToken = localStorage.refreshToken;

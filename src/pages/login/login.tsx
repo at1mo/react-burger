@@ -11,12 +11,12 @@ import Spinners from "../../components/spinners/spinners";
 
 import styleLogin from "./login.module.css";
 import { useDispatch, useSelector } from "../../utils/hooks";
-import { TLocationState } from "../../components/app/app";
+import { ILocation } from "../../components/app/app";
 
 export const LoginPage: FC = () => {
   const dispatch = useDispatch();
   const { loginRequest } = useSelector((store) => store.auth);
-  const location = useLocation<TLocationState>();
+  const location = useLocation<ILocation>();
 
   const [form, setForm] = useState({ email: "", password: "" });
   const passwordRef = useRef<HTMLInputElement>(null);

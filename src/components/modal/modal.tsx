@@ -15,7 +15,7 @@ interface IModal {
 }
 
 const Modal: FC<IModal> = ({ name, closeModal, children }) => {
-  const handlerEscClose = (evt: KeyboardEventInit) => {
+  const handlerEscClose = (evt: KeyboardEvent) => {
     if (evt.key === "Escape") {
       closeModal();
     }

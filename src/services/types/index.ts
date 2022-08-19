@@ -1,5 +1,5 @@
 import { ActionCreator } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { ThunkAction } from "redux-thunk";
 import { TAuthActions } from "../actions/auth";
 import { TConstructorActions } from "../actions/constructor";
 import { TIngredientsActions } from "../actions/ingredients";
@@ -20,7 +20,7 @@ export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, TRootState, undefined, TApplicationActions>
 >;
 
-// export type AppDispatch = typeof store.dispatch;
-export type AppDispatch = ActionCreator<
-  ThunkDispatch<TRootState, never, TApplicationActions>
->;
+export type AppDispatch = typeof store.dispatch;
+// export type AppDispatch = ActionCreator<
+//   ThunkDispatch<TRootState, undefined, TApplicationActions>
+// >;

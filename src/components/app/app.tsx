@@ -1,8 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 import { getIngredients } from "../../services/actions/ingredients";
-
 import AppHeader from "../app-header/app-header";
 import {
   FeedPage,
@@ -21,16 +20,15 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import styleApp from "./app.module.css";
 
-export interface TLocationState extends Location {
-  background?: any;
-  from?: {
-    pathname: string;
-  };
+export interface ILocation {
+  from: Location;
+  background?: Location | any;
+  pathname: string;
 }
 
 const App: FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation<TLocationState>();
+  const location = useLocation<ILocation>();
   const locationBackground = location.state && location.state.background;
   const history = useHistory();
 
